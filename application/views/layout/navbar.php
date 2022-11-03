@@ -30,7 +30,7 @@
                         <a class="menu" href="<?php echo base_url('dashboard'); ?>">Home</a>
                      </li>
                      <li>
-                        <a class="menu" href="<?php echo base_url('produk'); ?>/gender/Girl">Grils</a>
+                        <a class="menu" href="<?php echo base_url('produk'); ?>/gender/Girl">Girls</a>
                      </li>
                      <li>
                         <a class="menu" href="<?php echo base_url('produk'); ?>/gender/Boy">Boys</a>
