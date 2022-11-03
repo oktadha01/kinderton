@@ -60,14 +60,14 @@
                         </a>
                         <div id="dropdown-user" class="menu-dropdown dropdown-menu dropdown-menu-lg dropdown-menu-right">
                            <div class="dropdown-divider"></div>
-                           <a href="<?php echo site_url('user'); ?>" class="dropdown-item">
+                           <a href="<?php echo base_url('user'); ?>" class="dropdown-item">
                               <i class="fa-regular fa-user"></i> <?= $this->session->userdata("nm_user") ?>
                            </a>
                            <div class="dropdown-divider"></div>
                            <a href="<?php echo site_url('logout'); ?>" class="dropdown-item">
                               <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
                            </a>
-                        </div>   
+                        </div>
                      </li>
                   <?php
                   } else if ($this->session->userdata("privilage") == 'member') { ?>
