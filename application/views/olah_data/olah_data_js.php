@@ -3,7 +3,7 @@
         $('.notif-pesanan').load('<?php echo site_url('chekout/notif_vali_pesanan'); ?>');
         $('.notif-pesanan_dikirim').load('<?php echo site_url('chekout/notif_pesanan_dikirim'); ?>');
 
-        $('.form-data').load('<?php echo base_url('Olah_data/jenis_produk'); ?>');
+        $('.form-data').load('<?php echo site_url('Olah_data/jenis_produk'); ?>');
         $('#btn-jenis-produk').click(function(e) {
             $('.form-data').load('<?php echo site_url('Olah_data/jenis_produk'); ?>');
             $('#form-harga-produk').attr('hidden', true);
