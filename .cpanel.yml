@@ -6,3 +6,9 @@ deployment:
     - /bin/cp -R assets $DEPLOYPATH
     - /bin/cp -R upload $DEPLOYPATH
     - /bin/cp -R .htaccess $DEPLOYPATH
+    - /bin/cp -R .editorconfig $DEPLOYPATH
+    - /bin/cp -R .gitignore $DEPLOYPATH
+    - /bin/cp -R comproser.json $DEPLOYPATH
+    - /bin/cp -R contributing.md $DEPLOYPATH
+    - /bin/cp -R license.txt $DEPLOYPATH
+    - /bin/cp -R index.php $DEPLOYPATH
