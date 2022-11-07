@@ -251,7 +251,7 @@
             </div>
         </div>
     </div>
-    <div id="form-buat-pesanan-addtocart">
+    <div id="form-buat-pesanan-addtocart" class="mt-4">
         <div id="data_modal_addtocart"></div>
         <div class="container detail-cart">
             <div class="row">

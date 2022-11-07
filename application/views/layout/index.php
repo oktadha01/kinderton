@@ -67,7 +67,7 @@
     <?php
     include_once 'navbar.php';
     ?>
-    <div id="page" class="dropdown-close-user top-panel-close">
+    <div id="page" class="dropdown-close-user">
         <?php
         if (isset($_view) && !empty($_view)) {
             $this->load->view($_view);
@@ -161,6 +161,7 @@
         })
         $('.top-panel-close').click(function(e) {
             // alert('ya');
+            $('#page').removeClass('top-panel-close');
             $('#modal-panel').removeClass('show');
         });
         $('#sidebar-menu').click(function(e) {

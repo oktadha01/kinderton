@@ -193,8 +193,6 @@
                                 <?php else : ?>
                                     <div id="btn-addtocart" class="btn_add_to_cart"><a href="#page" class="btn_1">Beli Sekarang</a></div>
                                 <?php endif ?>
-
-                                <!-- <div class="btn_add_to_cart"><a href="#0" class="btn_1">Add to Cart</a></div> -->
                             </div>
                         </div>
                     <?php

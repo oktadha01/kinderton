@@ -5,6 +5,7 @@
 <script>
     // $(document).ready(function() {
     $('#btn-addtocart').click(function() {
+        $('#page').addClass('top-panel-close');
         $('#data_modal_addtocart').load('<?php echo site_url('Chekout/data_addtocart_detail'); ?>');
         // berat_kg();
 
