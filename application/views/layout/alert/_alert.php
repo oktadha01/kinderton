@@ -4,19 +4,26 @@
 <script>
     $(function() {
         // $(function() {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
-            <?php if ($this->session->flashdata('error')) { ?>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        <?php if ($this->session->flashdata('error')) { ?>
 
             Toast.fire({
                 type: 'error',
                 title: '<?= $this->session->flashdata('error') ?>'
             })
-            // });
+        <?php } ?>
+        
+        <?php if ($this->session->flashdata('success')) { ?>
+
+            Toast.fire({
+                type: 'success',
+                title: '<?= $this->session->flashdata('success') ?>'
+            })
         <?php } ?>
     });
 </script>

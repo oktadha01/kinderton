@@ -213,7 +213,7 @@
     </div>
     <div id="data-cart" class="container mb-2">
         <center>
-            <h5 id="tdk-ada-pesanan" class="font-family-cursive">Tidak ada pesanan!!</h5>
+            <h5 id="" class="font-family-cursive tdk-ada-pesanan">Tidak ada pesanan!!</h5>
         </center>
         <div id="div1" class="targetDiv">
             <h6 class="notif-blm-byr notifblmbyr"><span class="notif_blm_byr"></span> Pesanan Belum Dibayar</h6>
@@ -1042,10 +1042,13 @@ if ($query->num_rows() > 0) {
 }
 ?>
 <script>
-    // $(document).ready(function() {
-
-    // reset_form_upload();
-    // $('.notif_icon_blm_byr').text('123')
+    // if ($('.notif-cart').text() == '0') {
+    //     $('#tdk-ada-pesanan').show(200);
+    //     alert('ya');
+    // }else{
+        
+    //     $('#tdk-ada-pesanan').hide();
+    // }
     $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
     $('.notif_sdh_byr').load('<?php echo site_url('cart/notif_sdh_byr'); ?>');
     $('.notif_brg_kms').load('<?php echo site_url('cart/notif_brg_kms'); ?>');
@@ -1217,18 +1220,19 @@ if ($query->num_rows() > 0) {
             tdk_ada_pesanan();
         });
     });
-
+    
+    
+    tdk_ada_pesanan();
     function tdk_ada_pesanan() {
         $("#data-cart").each(function() {
-
             var $minHeight = 100;
             //you need the height of the div you are currently iterating on: use this
             if ($(this).height() < $minHeight) {
-                $('#tdk-ada-pesanan').hide();
-                $('#tdk-ada-pesanan').show(200);
+                $('.tdk-ada-pesanan').hide();
+                $('.tdk-ada-pesanan').show(200);
                 // alert('ya');
             } else {
-                $('#tdk-ada-pesanan').hide();
+                $('.tdk-ada-pesanan').hide();
             }
         });
     }

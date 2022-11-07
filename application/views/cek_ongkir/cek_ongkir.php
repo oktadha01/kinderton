@@ -135,7 +135,7 @@ $berat = $data['rajaongkir']['query']['weight'] / 1000;
         </table>
     </div>
     <input type="text" id="layanan-kurir" value="" hidden>
-    <input type="text" id="etd" value="">
+    <input type="text" id="etd" value="" hidden>
 </div>
 <script>
     $(document).ready(function() {
