@@ -164,21 +164,6 @@ echo $get_data
                 <div class="item">
                     <a href="#0"><img src="<?php echo base_url('assets'); ?>/img/ikon baju-06.png" data-src="<?php echo base_url('assets'); ?>/img/ikon baju-06.png" alt="" class="owl-lazy size-logo-slide"></a>
                 </div>
-                <!-- <div class="item">
-                    <a href="#0"><img src="<?php echo base_url('assets'); ?>/img/brands/placeholder_brands.png" data-src="<?php echo base_url('assets'); ?>/img/brands/logo_2.png" alt="" class="owl-lazy"></a>
-                </div> -->
-                <!-- <div class="item">
-                    <a href="#0"><img src="<?php echo base_url('assets'); ?>/img/brands/placeholder_brands.png" data-src="<?php echo base_url('assets'); ?>/img/brands/logo_3.png" alt="" class="owl-lazy"></a>
-                </div>
-                <div class="item">
-                    <a href="#0"><img src="<?php echo base_url('assets'); ?>/img/brands/placeholder_brands.png" data-src="<?php echo base_url('assets'); ?>/img/brands/logo_4.png" alt="" class="owl-lazy"></a>
-                </div>
-                <div class="item">
-                    <a href="#0"><img src="<?php echo base_url('assets'); ?>/img/brands/placeholder_brands.png" data-src="<?php echo base_url('assets'); ?>/img/brands/logo_5.png" alt="" class="owl-lazy"></a>
-                </div>
-                <div class="item">
-                    <a href="#0"><img src="<?php echo base_url('assets'); ?>/img/brands/placeholder_brands.png" data-src="<?php echo base_url('assets'); ?>/img/brands/logo_6.png" alt="" class="owl-lazy"></a>
-                </div> -->
             </div><!-- /carousel -->
         </div><!-- /container -->
     </div>

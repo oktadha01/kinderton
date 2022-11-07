@@ -30,20 +30,6 @@ class M_olah_data extends CI_Model
         return $query->result();
     }
 
-    function m_select_foto_produk($select_produk)
-    {
-        echo $select_produk;
-        // $hasil = $this->db->query("SELECT *FROM jenis_produk, foto_produk WHERE jenis_produk.id_jp='$select_produk' AND jenis_produk.id_jp=foto_produk.id_fotjp");
-        // return $hasil->result();
-        // $where = array('id_jp' => $select_produk);
-        $this->db->select('*');
-        $this->db->from('jenis_produk');
-        $this->db->where('id_jp', $select_produk);
-        $this->db->order_by('id_jp', 'desc');
-        $query = $this->db->get();
-        return $query->result();
-    }
-
     function m_simpan_jenis_produk($data)
     {
         $result = $this->db->insert('jenis_produk', $data);

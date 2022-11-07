@@ -15,7 +15,9 @@ class M_login extends CI_Model
                 $this->session->set_userdata('id_kota', $data_user->id_kota);
                 $this->session->set_userdata('kota', $data_user->kota);
                 $this->session->set_userdata('alamat', $data_user->alamat);
+                $this->session->set_userdata('kontak', $data_user->kontak);
                 $this->session->set_userdata('privilage', $data_user->privilage);
+                $this->session->set_userdata('status_user', $data_user->status_user);
                 $this->session->set_userdata('is_login', TRUE);
                 return TRUE;
             } else {

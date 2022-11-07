@@ -240,7 +240,6 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                               
                                             <div class="form-select-data-jenis-produk-foto"></div>
                                             </div>
                                             <div class="form-group">
@@ -295,7 +294,6 @@
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>

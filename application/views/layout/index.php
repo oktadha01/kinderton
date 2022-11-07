@@ -52,6 +52,7 @@
     <!-- SPECIFIC CSS -->
 
     <!-- <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/libs/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link href="<?php echo base_url('assets'); ?>/css/home_1.css" rel="stylesheet" />
     <link href="<?php echo base_url('assets'); ?>/css/product_page.css" rel="stylesheet">
     <link href="<?php echo base_url('assets'); ?>/css/cart.css" rel="stylesheet">
@@ -103,6 +104,8 @@
     <!-- date-range-picker -->
     <!-- SPECIFIC SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script src="<?php echo base_url('assets'); ?>/libs/sweetalert2/sweetalert2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="<?php echo base_url('assets'); ?>/js/common_scripts.min.js"></script>
     <script src="<?php echo base_url('assets'); ?>/js/main.js"></script>
@@ -117,12 +120,12 @@
     if (isset($_script) && !empty($_script)) {
         $this->load->view($_script);
     } ?>
-    <!-- <?php
-            if (isset($_GET['pesanan']) && !empty($_GET['pesanan'])) {
-                $pesanan = $_GET['pesanan'];
-            ?>
+    <?php
+    if (isset($_GET['pesanan']) && !empty($_GET['pesanan'])) {
+        $pesanan = $_GET['pesanan'];
+    ?>
         <?php
-                if ($pesanan == 'dikirim') { ?>
+        if ($pesanan == 'dikirim') { ?>
             <?php if ($this->session->userdata("privilage") == 'member') { ?>
                 <script>
                     $('#modal-panel').addClass('show');
@@ -130,26 +133,28 @@
                     $('.targetDiv').hide();
                 </script>
             <?php
-                    } else {
+            } else {
             ?>
                 <script>
                     $('#modal-login').modal();
                 </script>
             <?php
-                    }
+            }
             ?>
         <?php
-                } else {
-                    redirect(base_url(''));
+        } else {
+            redirect(base_url(''));
         ?>
 
         <?php
-                }
+        }
         ?>
     <?php
-            }
-    ?> -->
+    }
+    ?>
+
     <script>
+        
         $('.dropdown-close-user').click(function(e) {
             // alert('ya');
             $('#dropdown-user').removeClass('show');

@@ -84,7 +84,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="form-group">
                             <select class="form-control select2 height-2rem p-2px" id="select-nm-produk" name="" required="true">
-                                <option value="0">Pilih Produk*</option>
+                                <option value="0">All Produk*</option>
                                 <?php
                                 foreach ($jenis_produk as $data_jp) :
                                 ?>
@@ -116,7 +116,7 @@
                     <?php
                     foreach ($foto_produk as $data_fp) {
                     ?>
-                        <tr>
+                        <tr id="" class="tr-foto-produk tr-foto-<?php echo $data_fp->id_jp; ?>">
                             <td role="cell" scope="col"><?php echo $data_fp->nm_jp; ?></td>
                             <td role="cell" scope="col"><img src="<?php echo base_url('upload'); ?>/<?php echo $data_fp->fotpro; ?>" id="" class="img-thumbnail max-height-5rem">
                             </td>
@@ -144,9 +144,18 @@
 </div>
 
 <script>
-    // $('.form-data').load('<?php echo site_url('Olah_data/list_select_foto_produk'); ?>');
     $(document).ready(function() {
+        $('#select-nm-produk').change(function(e) {
+            var id = $("#select-nm-produk").find(':selected').val();
+            if (id == '0') {
+                $('.tr-foto-produk').show();
 
+            } else {
+                $('.tr-foto-produk').hide();
+                $('.tr-foto-' + id).show();
+            }
+
+        });
         $('.btn-edit-foto-produk').click(function(e) {
             $('#form-foto-produk').removeAttr('hidden', true);
             $('#ceklis-ubah-foto').removeAttr('hidden', true);
@@ -167,29 +176,6 @@
             $('#id-fotpro').val($(this).data('id-fotpro'));
         });
 
-        $('#select-nm-produk').change(function(e) {
-            var select = $("#select-nm-produk").find(':selected').val();
-            let formData = new FormData();
-            formData.append('select-nm-produk', select);
-            // formData.append('action', 'select');
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo site_url('Olah_data/select_foto_produk'); ?>",
-                data: formData,
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function(msg) {
-                    $('.form-data').load('<?php echo site_url('olah_data/list_select_foto_produk'); ?>');
-                    // $('.form-data').hide();
-
-                },
-                error: function() {
-                    alert("Data Gagal Diupload");
-                },
-            });
-            return false;
-        });
         $('.hapus-foto-produk').click(function(e) {
             var el = this;
 

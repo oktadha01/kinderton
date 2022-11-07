@@ -44,13 +44,7 @@
                                                                                 <tr>
                                                                                     <td style="font-family:Open Sans,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;padding:40px 48px">
                                                                                         <p>Hi <a href="mailto:<?php echo $gmail; ?>" target="_blank"><?php echo $gmail; ?></a>,</p>
-                                                                                        <.>Terimakasih telah mendaftar di Kinderton. Akun anda segara aktif dengan cara klik.</p>
-                                                                                        <p>Berikut detail akun anda :</p>
-                                                                                        <h2>Detail Akun Kinderton</h2>
-                                                                                        <p>Username: <?php echo $nm_user; ?><br>
-                                                                                            Password: (******)<br>
-                                                                                            Kontak: <?php echo $kontak; ?>
-                                                                                        </p>
+                                                                                        Terimakasih telah mendaftar di Kinderton. Akun anda segara aktif dengan cara klik.</p>
                                                                                         <table cellspacing="0" cellpadding="0" style="font-family:Open Sans,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;border-collapse:collapse;width:100%">
                                                                                             <tbody>
                                                                                                 <tr>
@@ -59,8 +53,8 @@
                                                                                                             <tbody>
                                                                                                                 <tr>
                                                                                                                     <td align="center" valign="top" style="font-family:Open Sans,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;line-height:100%">
-                                                                                                                        <a href="https://app.infinityfree.net/accounts/epiz_32899282" style="text-decoration:none;white-space:nowrap;font-weight:600;font-size:16px;padding:12px 32px;border-radius:3px;line-height:100%;display:block;border:1px solid transparent;background-color:#467fcf;color:#fff;border-color:#467fcf" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://app.infinityfree.net/accounts/epiz_32899282&amp;source=gmail&amp;ust=1667450745750000&amp;usg=AOvVaw2VifFL9WdzkK_PlRda_cLB">
-                                                                                                                            <span style="color:#fff;font-size:16px;text-decoration:none;white-space:nowrap;font-weight:600;line-height:100%">View Account in Client Area</span>
+                                                                                                                        <a href="<?php echo base_url(); ?>konfrim_akun/aktivasi/<?php echo $id_user; ?>" style="text-decoration:none;white-space:nowrap;font-weight:600;font-size:16px;padding:12px 32px;border-radius:3px;line-height:100%;display:block;border:1px solid transparent;background-color:#467fcf;color:#fff;border-color:#467fcf" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://app.infinityfree.net/accounts/epiz_32899282&amp;source=gmail&amp;ust=1667450745750000&amp;usg=AOvVaw2VifFL9WdzkK_PlRda_cLB">
+                                                                                                                            <span style="color:#fff;font-size:16px;text-decoration:none;white-space:nowrap;font-weight:600;line-height:100%">aktivasi akun</span>
                                                                                                                         </a>
                                                                                                                     </td>
                                                                                                                 </tr>
@@ -70,12 +64,14 @@
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
-                                                                                        <h2>Get Support</h2>
-                                                                                        <p>Do you need help in getting started or would you like to know more about what you can do with our hosting?
-                                                                                            Check out our <a href="https://forum.infinityfree.net/docs" style="color:#467fcf;text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://forum.infinityfree.net/docs&amp;source=gmail&amp;ust=1667450745750000&amp;usg=AOvVaw2fEYuY272fK479bZQyXi0W">knowledge base</a> for the answers to many common questions and issues!</p>
-                                                                                        <p>Are you unable to find your answer there, or would you like to talk to someone, please check our <a href="https://forum.infinityfree.net" style="color:#467fcf;text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://forum.infinityfree.net&amp;source=gmail&amp;ust=1667450745750000&amp;usg=AOvVaw1fa9hA-yn8F5Mst8NLu36A">community forum</a> as well!</p>
-                                                                                        <p>Regards<br>
-                                                                                            InfinityFree</p>
+                                                                                        <p>Berikut detail akun anda :</p>
+                                                                                        <h2>Detail Akun Kinderton</h2>
+                                                                                        <p>Username: <?php echo $nm_user; ?><br>
+                                                                                            Password: (******)<br>
+                                                                                            Kontak: <?php echo $kontak; ?>
+                                                                                        </p>
+                                                                                        <hr>
+                                                                                        <p>Segala bentuk informasi seperti nomor kontak, alamat e-mail atau password kamu bersifat rahasia. Jangan menginformasikan data-data kepada siapapun, termasuk kepada pihak yang mengatasnamakan Kinderton.</p>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -92,13 +88,8 @@
                                                                     <table cellspacing="0" cellpadding="0" style="font-family:Open Sans,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;border-collapse:collapse;width:100%;color:#9eb0b7;text-align:center;font-size:13px">
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td style="font-family:Open Sans,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;padding-right:24px;padding-left:24px">
-                                                                                    Have any questions about this email? Check our community forum at <a href="https://forum.infinityfree.net" style="color:#467fcf;text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://forum.infinityfree.net&amp;source=gmail&amp;ust=1667450745750000&amp;usg=AOvVaw1fa9hA-yn8F5Mst8NLu36A">forum.infinityfree.net</a>.
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
                                                                                 <td style="font-family:Open Sans,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;padding-top:16px">
-                                                                                    Copyright © 2022 InfinityFree. All rights reserved.
+                                                                                    Copyright © 2022 Kinderton. All rights reserved.
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>

@@ -55,9 +55,13 @@
                 alert("Data Gagal Diupload");
             }
         });
-
+        $('#loader').hide();
         $('#btn-simpan-register').click(function(e) {
             e.preventDefault();
+            $('#loader').show();
+            $('.select2-selection').addClass('input_disabled').attr('disabled', true);
+            $('#btn-simpan-register').addClass('btn-disabled').removeClass('btn-info').attr('disabled', true);
+            $('#nm-user,#gmail,#kontak,#password,#alamat,#kota_tujuan').addClass('input_disabled').attr('disabled', true);
             var val_kota_tujuan = $("#kota_tujuan").find(':selected').val();
             var text_kota_tujuan = $("#kota_tujuan").find(':selected').text();
             // alert('ya')
@@ -70,15 +74,15 @@
             formData.append('alamat', $('#alamat').val());
             formData.append('id-kota', val_kota_tujuan);
             formData.append('kota', text_kota_tujuan);
+
             $.ajax({
                 type: 'POST',
-                url: "<?php echo site_url('Register/simpan_data_user'); ?>",
+                url: "<?php echo site_url('register/simpan_data_user'); ?>",
                 data: formData,
                 cache: false,
                 processData: false,
                 contentType: false,
                 success: function(msg) {
-                    alert(msg);
                     $.ajax({
                         type: 'POST',
                         url: "<?php echo site_url('Login/reg_login'); ?>",
@@ -88,7 +92,8 @@
                         contentType: false,
                         success: function(msg) {
                             // alert(msg);
-                            window.location.assign("<?php echo base_url('dashboard'); ?>");
+
+                            window.location.assign("<?php echo base_url('konfrim_akun'); ?>");
                         },
                         error: function() {
                             alert("Data Gagal Diupload");
@@ -104,3 +109,19 @@
 
     });
 </script>
+<!-- $.ajax({
+type: 'POST',
+url: "<?php echo site_url('register/kirim_email'); ?>",
+data: formData,
+cache: false,
+processData: false,
+contentType: false,
+success: function(msg) {
+// alert(msg);
+alert('ya');
+// window.location.assign("<?php echo base_url('konfrim_akun'); ?>");
+},
+error: function() {
+alert("Data Gagal Diupload");
+}
+}); -->

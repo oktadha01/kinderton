@@ -1,5 +1,5 @@
-<header id="navbar" class="version_1">
-   <?php $this->load->view('layout/alert/_alert') ?>
+<?php $this->load->view('layout/alert/_alert') ?>
+<header id="navbar" class="version_1 z-index-5">
 
    <!-- /main_header -->
    <!-- <div class="main_header"></div> -->
@@ -54,9 +54,9 @@
                <?php else : ?>
                   <?php if ($this->session->userdata("privilage") == 'admin') { ?>
                      <li class="float-right list-none">
-                        <a href="#" class="ml-3 a-header-icon a-header-icon-user" data-toggle="dropdown"><span class="user-acaunt mr-1"><?= $this->session->userdata("nm_user") ?></span> <i class="fa-regular fa-user menu-icon-header"></i>
-                        </a>
                         <a href="<?php echo base_url('Olah_data'); ?>" class="ml-3 a-header-icon"><i class="fa-solid fa-database menu-icon-header"></i>
+                        </a>
+                        <a href="#" class="ml-3 a-header-icon a-header-icon-user" data-toggle="dropdown"><span class="user-acaunt mr-1"><?= $this->session->userdata("nm_user") ?></span> <i class="fa-regular fa-user menu-icon-header"></i>
                         </a>
                         <div id="dropdown-user" class="menu-dropdown dropdown-menu dropdown-menu-lg dropdown-menu-right">
                            <div class="dropdown-divider"></div>
@@ -69,34 +69,55 @@
                            </a>
                         </div>
                      </li>
-                  <?php
-                  } else if ($this->session->userdata("privilage") == 'member') { ?>
-                     <li class="float-right list-none btn_add_to_cart">
-                        <a href="#page" id="btn-addtocart-favorit" class="ml-3 a-header-icon"><i class="fa-regular fa-heart menu-icon-header"></i>
-                           <span id="notif-favorit" class="badge badge-warning navbar-badge-favorit"></span>
-                        </a>
+                     <?php
+                  } else if ($this->session->userdata("privilage") == 'member') {
+                     if ($this->session->userdata("status_user") == '0') {
+                     ?>
+                        <li class="float-right list-none">
+                           <a href="#" class="ml-3 a-header-icon a-header-icon-user" data-toggle="dropdown"><span class="user-acaunt mr-1"><?= $this->session->userdata("nm_user") ?></span> <i class="fa-regular fa-user menu-icon-header"></i>
+                           </a>
+                           <div id="dropdown-user" class="menu-dropdown dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                              <div class="dropdown-divider"></div>
+                              <a href="<?php echo base_url('user'); ?>" class="dropdown-item">
+                                 <i class="fa-regular fa-user"></i> <?= $this->session->userdata("nm_user") ?>
+                              </a>
+                              <div class="dropdown-divider"></div>
+                              <a href="<?php echo site_url('logout'); ?>" class="dropdown-item">
+                                 <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+                              </a>
+                           </div>
 
-                        <a href="#page" id="btn-cart" class="ml-3 a-header-icon"><i class="fa-solid fa-cart-shopping menu-icon-header"></i>
-                           <span id="" class="badge badge-success navbar-badge-cart notif-cart"></span>
-                        </a>
-                     </li>
-                     <li class="float-right list-none">
-                        <a href="#" class="ml-3 a-header-icon a-header-icon-user" data-toggle="dropdown"><span class="user-acaunt mr-1"><?= $this->session->userdata("nm_user") ?></span> <i class="fa-regular fa-user menu-icon-header"></i>
-                        </a>
-                        <div id="dropdown-user" class="menu-dropdown dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                           <!-- <div class="dropdown-divider"></div> -->
-                           <a href="<?php echo site_url('user'); ?>" class="dropdown-item">
-                              <i class="fa-regular fa-user"></i> <?= $this->session->userdata("nm_user") ?>
+                        </li>
+                     <?php
+                     } else { ?>
+                        <li class="float-right list-none btn_add_to_cart">
+                           <a href="#page" id="btn-addtocart-favorit" class="ml-3 a-header-icon"><i class="fa-regular fa-heart menu-icon-header"></i>
+                              <span id="notif-favorit" class="badge badge-warning navbar-badge-favorit"></span>
                            </a>
-                           <div class="dropdown-divider"></div>
-                           <a href="<?php echo site_url('logout'); ?>" class="dropdown-item">
-                              <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+
+                           <a href="#page" id="btn-cart" class="ml-3 a-header-icon"><i class="fa-solid fa-cart-shopping menu-icon-header"></i>
+                              <span id="" class="badge badge-success navbar-badge-cart notif-cart"></span>
                            </a>
-                        </div>
-                     </li>
+                        </li>
+                        <li class="float-right list-none">
+                           <a href="#" class="ml-3 a-header-icon a-header-icon-user" data-toggle="dropdown"><span class="user-acaunt mr-1"><?= $this->session->userdata("nm_user") ?></span> <i class="fa-regular fa-user menu-icon-header"></i>
+                           </a>
+                           <div id="dropdown-user" class="menu-dropdown dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                              <!-- <div class="dropdown-divider"></div> -->
+                              <a href="<?php echo site_url('user'); ?>" class="dropdown-item">
+                                 <i class="fa-regular fa-user"></i> <?= $this->session->userdata("nm_user") ?>
+                              </a>
+                              <div class="dropdown-divider"></div>
+                              <a href="<?php echo site_url('logout'); ?>" class="dropdown-item">
+                                 <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+                              </a>
+                           </div>
+                        </li>
+                     <?php
+                     }
+                     ?>
                   <?php
                   } ?>
-
                <?php endif ?>
 
             </div>

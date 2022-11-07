@@ -18,9 +18,8 @@ class Detail_produk extends CI_Controller
 	function data()
 	{
 		$id = $this->uri->segment(3);
-		$data['_title'] = 'Dashboard';
-		$data['_menu'] = 'dashboard'; //for menu
-		$data['_submenu'] = 'dashboard'; //for submenu
+		$produk = $this->uri->segment(4);
+		$data['_title'] = $produk;
 		$data['_script'] = 'detail_produk/detail_produk_js';
 		$data['_view'] = 'detail_produk/detail_produk';
 		$data['jenis_produk'] = $this->m_detail_produk->m_produk_detail($id);

@@ -154,6 +154,26 @@ html {
 	background: #9e9e9c1a;
 }
 
+.bg-konf-email {
+	min-height: 5rem;
+	background-color: #edecec;
+	padding: 20px 0px;
+	padding-top: 19px;
+}
+
+.btn-konf-email {
+	background: #c99f7e;
+	color: white;
+	display: block;
+	height: 40px;
+	padding: 10px 0px;
+}
+
+.color-kinderton {
+	color: #c99f7e;
+	font-weight: bold;
+}
+
 .span-dikirim {
 	border: 1px solid #00000014;
 	max-inline-size: fit-content;
@@ -298,6 +318,10 @@ html {
 	border-top: 1px solid #dddddd;
 }
 
+.z-index-5 {
+	z-index: 5 !important;
+}
+
 .hide {
 	display: none;
 }
@@ -316,6 +340,10 @@ html {
 
 .height-52px {
 	height: 25px;
+}
+
+.height-39px {
+	height: 39px;
 }
 
 .min-height {
@@ -373,6 +401,10 @@ html {
 .pt-5rem {
 	padding-top: 5rem;
 
+}
+
+.pt-23px {
+	padding-top: 23px;
 }
 
 .text-bold {

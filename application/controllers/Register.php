@@ -53,7 +53,6 @@ class Register extends CI_Controller
                 // $nomorhp1 = str_replace("'", "", $nomorhp);
             }
         }
-        // echo $nomorhp;
         $data = array(
             'nm_user'  => $this->input->post('nm-user'),
             'gmail' => $this->input->post('gmail'),
@@ -63,66 +62,58 @@ class Register extends CI_Controller
             'kota' => $this->input->post('kota'),
             'alamat' => $this->input->post('alamat'),
             'privilage' => 'member',
-            'status_user' => '1',
+            'status_user' => '0',
         );
-        $data = $this->m_register->m_simpan_data_user($data);
-        echo json_encode($data);
+        $insert = $this->m_register->m_simpan_data_user($data);
+        echo json_encode($insert);
+        // echo $nomorhp;
         return $nomorhp;
     }
+
+    function kirim_email()
+    {
+        // $config = [
+        //     'mailtype'  => 'html',
+        //     'charset'   => 'utf-8',
+        //     'protocol'  => 'smtp',
+        //     'smtp_host' => 'smtp.gmail.com',
+        //     'smtp_user' => 'oktadha01@gmail.com',  // Email gmail
+        //     'smtp_pass'   => 'hbbtesslxafvvnwc',  // Password gmail
+        //     'smtp_crypto' => 'ssl',
+        //     'smtp_port'   => 465,
+        //     'crlf'    => "\r\n",
+        //     'newline' => "\r\n"
+        // ];
+        // $gmail = $this->input->post('gmail');
+        // $kontak = $this->input->post('kontak');
+        // $nm_user  = $this->input->post('nm-user');
+
+        // $this->load->library('email', $config);
+        // $this->email->from('oktadha01@gmail.com', 'Kinderton');
+        // $this->email->to('oktadha02@gmail.com');
+        // $this->email->subject('Kirim Email dengan SMTP Gmail CodeIgniter | MasRud.com');
+        // // $sql = "SELECT * FROM user WHERE gmail = $gmail";
+        // // $query = $this->db->query($sql);
+        // // if ($query->num_rows() > 0) {
+        // //     foreach ($query->result() as $data) :
+        // //     endforeach;
+        // // }
+        // $data_email = array(
+        //     'nm_user'  => $nm_user,
+        //     'gmail' => $gmail,
+        //     'kontak' => $kontak,
+        // );
+
+        // $body = $this->load->view('email/email_template.php', $data_email, TRUE);
+        // $this->email->message($body);
+
+        // // Tampilkan pesan sukses atau error
+        // if ($this->email->send()) {
+        //     echo 'true.';
+        //     redirect(base_url('konfrim_akun'));
+        // } else {
+        //     echo 'Error! email tidak dapat dikirim.';
+        // }
+    }
 }
-// $config = [
-//     'mailtype'  => 'html',
-//     'charset'   => 'utf-8',
-//     'protocol'  => 'smtp',
-//     'smtp_host' => 'smtp.gmail.com',
-//     'smtp_user' => 'oktadha01@gmail.com',  // Email gmail
-//     'smtp_pass'   => 'hbbtesslxafvvnwc',  // Password gmail
-//     'smtp_crypto' => 'ssl',
-//     'smtp_port'   => 465,
-//     'crlf'    => "\r\n",
-//     'newline' => "\r\n"
-// ];
-
-// // Load library email dan konfigurasinya
-// $this->load->library('email', $config);
-
-// // Email dan nama pengirim
-// $this->email->from('oktadha01@gmail.com', 'Kinderton');
-
-// // Email penerima
-// $this->email->to('oktadha02@gmail.com'); // Ganti dengan email tujuan
-
-// // Lampiran email, isi dengan url/path file
-// // $this->email->attach('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.orami.co.id%2Fmagazine%2Fkartun-anak-yang-mendidik&psig=AOvVaw2gXK9JDYmKMCv3oz92HvwW&ust=1664341553038000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPDh_86ZtPoCFQAAAAAdAAAAABAD');
-
-// // Subject email
-// // $no = $nomorhp;
-// $this->email->subject('Kirim Email dengan SMTP Gmail CodeIgniter | MasRud.com');
-// $data_email = array(
-//     'nm_user'  => $this->input->post('nm-user'),
-//     'gmail' => $this->input->post('gmail'),
-//     'kontak' => $nomorhp,
-// );
-// $data = array(
-//     'nm_user'  => $this->input->post('nm-user'),
-//     'gmail' => $this->input->post('gmail'),
-//     'kontak' => $nomorhp,
-//     'password' => md5($this->input->post('password')),
-//     'id_kota' => $this->input->post('id-kota'),
-//     'kota' => $this->input->post('kota'),
-//     'alamat' => $this->input->post('alamat'),
-//     'privilage' => 'member',
-//     'status_user' => '1',
-// );
-// $body = $this->load->view('email/email_template.php', $data_email, TRUE);
-// $this->email->message($body);
-
-// // Tampilkan pesan sukses atau error
-// if ($this->email->send()) {
-//     // echo 'Sukses! email berhasil dikirim.';
-//     $data = $this->m_register->m_simpan_data_user($data);
-//     echo json_encode($data);
-// } else {
-//     echo 'Error! email tidak dapat dikirim.';
-// }
-// return $nomorhp;
+    

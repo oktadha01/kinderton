@@ -137,9 +137,13 @@
                             <li><a href="#" class="tooltip-1" data-toggle="modal" data-target="#modal-login" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
                             <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
                         <?php else : ?>
-                            <!-- <li><a href="#" id="" class="tooltip-1 btn-simpan-favorit btn-favorit<?php echo $row->id_jp; ?>" data-user="<?= $this->session->userdata("id_user") ?>" data-produk="<?php echo $row->id_jp; ?>" data-foto="<?php echo $foto->id_fotpro; ?>" data-harga="<?php echo $harga->id_hrg; ?>" data-toggle="tooltip" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li> -->
-                            <li><a href="#" class="tooltip-1 btn-favorit-produk" data-id-produk="<?php echo $row->id_jp; ?>" data-foto-produk="<?php echo $foto->fotpro; ?>" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
-                            <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                            <?php if ($this->session->userdata('status_user') == '1') { ?>
+                                <li><a href="#" class="tooltip-1 btn-favorit-produk" data-id-produk="<?php echo $row->id_jp; ?>" data-foto-produk="<?php echo $foto->fotpro; ?>" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                                <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                            <?php } else { ?>
+                                <li><a href="#" class="tooltip-1 btn-favorit-produk-konfemail" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                                <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                            <?php } ?>
                         <?php endif ?>
                     </ul>
                 </div>
@@ -151,6 +155,24 @@
     ?>
 </div>
 <script>
+    $('.btn-favorit-produk-konfemail').click(function(e) {
+        sweetalert();
+        // alert('ya');
+    });
+
+    function sweetalert() {
+        Swal.fire({
+            // title: 'Error!',
+            text: 'Please activate your account',
+            icon: 'error',
+            confirmButtonText: 'Konfrimasi'
+        })
+        $('.swal2-confirm').click(function(e) {
+            window.location.assign("<?php echo base_url('konfrim_akun'); ?>");
+
+        })
+
+    };
     $('.btn-favorit-produk').click(function() {
         $('.navbar-bottom').addClass("opened");
         var id_produk = $(this).data('id-produk');

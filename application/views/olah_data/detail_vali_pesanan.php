@@ -277,12 +277,11 @@ if ($query->num_rows() > 0) {
 
                 if ($('.action-vali-pesanan').val() == 'Dikirim') {
                     var nohp = '<?php echo $data->kontak; ?>';
-                    // var pesan = 'horree.. Pesanan kamu sudah di antar ke alamat anda.. silahkan cek no resi kamu di sini: <?php echo site_url(); ?>/dashboard/?pesanan=dikirim';
-                    var pesan = 'horree.. Pesanan kamu sudah di antar ke alamat anda.. silahkan cek no resi kamu di sini: http://localhost/backup-kinderton/?pesanan=dikirim';
+                    var pesan = 'horree.. Pesanan kamu sudah di antar ke alamat anda.. silahkan cek no resi kamu di sini: <?php echo base_url(); ?>/?pesanan=dikirim';
+                    // var pesan = 'horree.. Pesanan kamu sudah di antar ke alamat anda.. silahkan cek no resi kamu di sini: http://localhost/backup-kinderton/?pesanan=dikirim';
                     var linkWA = 'https://web.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
                     window.location = linkWA;
                 }
-
             },
             error: function() {
                 alert("Data Gagal Diupload");

@@ -1,5 +1,49 @@
+<style>
+    .loader_regis {
+        overflow: hidden;
+        position: absolute;
+        top: 45%;
+        bottom: 45%;
+        left: 40%;
+        right: 40%;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        z-index: 100000;
+    }
+
+    .loader__element {
+        border-radius: 100%;
+        border: 5px solid #555;
+        margin: calc(5px * 2);
+    }
+
+    .loader__element:nth-child(1) {
+        animation: preloader 0.6s ease-in-out alternate infinite;
+    }
+
+    .loader__element:nth-child(2) {
+        animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
+    }
+
+    .loader__element:nth-child(3) {
+        animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
+    }
+
+    @keyframes preloader {
+        100% {
+            transform: scale(2);
+        }
+    }
+</style>
 <main class="margin_76_35 bg_gray">
     <div class="container margin_30">
+        <div id="loader" class="loader_regis">
+            <span class="loader__element"></span>
+            <span class="loader__element"></span>
+            <span class="loader__element"></span>
+        </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-12">
                 <label class="control-label col-sm-3" for="nm_jp">Nama</label>
