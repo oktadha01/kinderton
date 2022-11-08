@@ -203,7 +203,7 @@
                     <div class="form-group">
                         <label>Bank Pengirim</label>
                         <select class="form-control select2" id="bank-pengirim" name="bank_pengirim" required="true">
-                            <option value="pilih_bank">Pilih Bank*</option>
+                            <option value="0">Pilih Bank*</option>
                             <option value="BCA">BCA</option>
                             <option value="BRI">BRI</option>
                             <option value="BNI">BNI</option>
@@ -245,7 +245,7 @@
                     <a href="#page">
                         <button type="button" id="btn-ok-addtocart" class="col-lg-6 col md-6 col-12 btn btn-sm btn-info float-right" value="">Ok</button>
                         <button type="button" id="btn-upload-bukti" class="col-lg-6 col md-6 col-12 btn btn-sm btn-info float-right" value="">Upload Bukti Pembayaran</button>
-                        <button type="button" id="btn-kirim-bukti" class="col-lg-6 col md-6 col-12 btn btn-sm btn-success float-right" value="">Kirim</button>
+                        <button type="button" id="btn-kirim-bukti" class="col-lg-6 col md-6 col-12 btn btn-sm btn-success float-right " value="">Kirim</button>
                     </a>
                 </div>
             </div>

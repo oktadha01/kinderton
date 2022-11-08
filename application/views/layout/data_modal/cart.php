@@ -1046,7 +1046,7 @@ if ($query->num_rows() > 0) {
     //     $('#tdk-ada-pesanan').show(200);
     //     alert('ya');
     // }else{
-        
+
     //     $('#tdk-ada-pesanan').hide();
     // }
     $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
@@ -1163,46 +1163,76 @@ if ($query->num_rows() > 0) {
         reader.readAsDataURL(this.files[0]);
     });
     $('#bank-pengirim').select2();
-    $('#an-pengirim, #nominal').on('input', function() {
-        btn_enable_kirim();
-    });
+    // $('#an-pengirim, #nominal').on('input', function() {
+    //     btn_enable_kirim();
+    // });
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
     $("#btn-kirim-bukti").click(function(e) {
         // alert('ya');
-        e.preventDefault();
-        var nama = $('#an-pengirim').val();
-        var nominal = $('#nominal').val();
-        var kode_pesanan = $('#kode-pesanan').val();
-        var bank = $("#bank-pengirim").find(':selected').val();
-        const foto_bukti = $('#bukti-transfer').prop('files')[0];
-        let formData = new FormData();
-        formData.append('an-pengirim', nama);
-        formData.append('nominal', nominal);
-        formData.append('kode-pesanan', kode_pesanan);
-        formData.append('bank', bank);
-        formData.append('foto-bukti', foto_bukti);
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo site_url('cart/simpan_bukti_transfer'); ?>",
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(msg) {
-                $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
-                $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
-                var kode_pesanan = $('#kode-pesanan').val();
-                var nohp = '<?php echo $useradmin->kontak; ?>';
-                // var pesan = 'Terikasih sudah order, pesanan kamu segara kami kiri ke alamat anda ...';
-                var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan #' + kode_pesanan;
-                var linkWA = 'https://web.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
-                window.location = linkWA;
-            },
-            error: function() {
-                alert("Data Gagal Diupload");
-            },
-        });
+        if ($('#an-pengirim').val() == '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Nama pengirim tidak boleh kosong'
+            })
+
+        } else if ($("#bank-pengirim").find(':selected').val() == '0') {
+            Toast.fire({
+                type: 'error',
+                title: 'Bank pengirim tidak boleh kosong'
+            })
+        } else if ($('#nominal').val() == '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Nominal pengirim tidak boleh kosong'
+            })
+        } else if ($('#nm-bukti-transfer').val() == '') {
+            Toast.fire({
+                type: 'error',
+                title: 'Bukti transfer tidak boleh kosong'
+            })
+        } else {
+            e.preventDefault();
+            var nama = $('#an-pengirim').val();
+            var nominal = $('#nominal').val();
+            var kode_pesanan = $('#kode-pesanan').val();
+            var bank = $("#bank-pengirim").find(':selected').val();
+            const foto_bukti = $('#bukti-transfer').prop('files')[0];
+            let formData = new FormData();
+            formData.append('an-pengirim', nama);
+            formData.append('nominal', nominal);
+            formData.append('kode-pesanan', kode_pesanan);
+            formData.append('bank', bank);
+            formData.append('foto-bukti', foto_bukti);
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo site_url('cart/simpan_bukti_transfer'); ?>",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(msg) {
+                    $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
+                    $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
+                    var kode_pesanan = $('#kode-pesanan').val();
+                    var nohp = '<?php echo $useradmin->kontak; ?>';
+                    // var pesan = 'Terikasih sudah order, pesanan kamu segara kami kiri ke alamat anda ...';
+                    var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan #' + kode_pesanan;
+                    var linkWA = 'https://web.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
+                    window.location = linkWA;
+                },
+                error: function() {
+                    alert("Data Gagal Diupload");
+                },
+            });
+        }
     });
+    new AutoNumeric('#nominal', autoNumericOption);
 
     tdk_ada_pesanan();
     jQuery(function() {
@@ -1220,9 +1250,10 @@ if ($query->num_rows() > 0) {
             tdk_ada_pesanan();
         });
     });
-    
-    
+
+
     tdk_ada_pesanan();
+
     function tdk_ada_pesanan() {
         $("#data-cart").each(function() {
             var $minHeight = 100;
@@ -1239,12 +1270,14 @@ if ($query->num_rows() > 0) {
 
     function btn_enable_kirim() {
         if ($('#an-pengirim').val() == '') {
+            alert('ya');
 
         } else if (($('#nominal').val() == '')) {
 
+            alert('ya');
         } else {
 
-            // alert('ya');
+            $('#btn-kirim-bukti').addClass('btn-success').removeClass('btn-disabled').removeAttr('disabled', true);
         }
     }
 

@@ -436,7 +436,6 @@
             });
         }
     });
-    new AutoNumeric('#nominal', autoNumericOption);
     new AutoNumeric('#hrg-awal', autoNumericOption);
     new AutoNumeric('#hrg-diskon', autoNumericOption);
     $(function() {
