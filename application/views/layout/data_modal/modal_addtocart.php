@@ -222,12 +222,12 @@
                         <input type="text" id="kode-pesanan" name="kode_pesanan" class="form-control btn-disabled" value="" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="bukti-transfer">Foto produk</label>
+                        <label for="bukti-transfer">Foto Bukti transfer</label>
                         <div class="input-group">
                             <input type="file" id="bukti-transfer" name="bukti_transfer" class="file-bukti-transfer" hidden required>
                             <input type="text" id="nm-bukti-transfer" class="pilih-bukti-transfer form-control" placeholder="Upload Gambar" required>
                             <div class="input-group-append">
-                                <button type="button" id="" class="pilih-bukti-transfer browse btn btn-dark">Pilih Gambar</button>
+                                <button type="button" id="" class="pilih-bukti-transfer browse btn btn-dark">Upload Bukti</button>
                             </div>
                         </div>
                     </div>
