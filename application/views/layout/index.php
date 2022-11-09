@@ -154,7 +154,6 @@
     ?>
 
     <script>
-       
         $('.dropdown-close-user').click(function(e) {
             // alert('ya');
             $('#dropdown-user').removeClass('show');
@@ -523,6 +522,9 @@
             decimalPlaces: 0,
             watchExternalChanges: true //!!!        
         };
+
+        new AutoNumeric('#hrg-awal', autoNumericOption);
+        new AutoNumeric('#hrg-diskon', autoNumericOption);
     </script>
 </body>
 

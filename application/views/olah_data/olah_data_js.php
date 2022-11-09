@@ -456,8 +456,6 @@
             });
         }
     });
-    new AutoNumeric('#hrg-awal', autoNumericOption);
-    new AutoNumeric('#hrg-diskon', autoNumericOption);
     $(function() {
         //Initialize Select2 Elements
         $('.select2').select2()
