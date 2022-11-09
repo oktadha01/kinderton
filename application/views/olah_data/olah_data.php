@@ -1,3 +1,42 @@
+<style>
+    .loader-insert-foto {
+        overflow: hidden;
+        position: absolute;
+        top: 45%;
+        bottom: 45%;
+        left: 35%;
+        right: 35%;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        z-index: 100000;
+    }
+
+    .loader__element {
+        border-radius: 100%;
+        border: 5px solid #555;
+        margin: calc(5px * 2);
+    }
+
+    .loader__element:nth-child(1) {
+        animation: preloader 0.6s ease-in-out alternate infinite;
+    }
+
+    .loader__element:nth-child(2) {
+        animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
+    }
+
+    .loader__element:nth-child(3) {
+        animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
+    }
+
+    @keyframes preloader {
+        100% {
+            transform: scale(2);
+        }
+    }
+</style>
 <main class="bg_gray">
     <div class="container margin_30 pt-5rem">
         <!-- /page_header -->
@@ -100,8 +139,8 @@
                             <div class="private box">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-12">
-                                       
-                                    <div class="form-select-data-jenis-produk-harga"></div>
+
+                                        <div class="form-select-data-jenis-produk-harga"></div>
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-12">
                                         <label>Status</label>
@@ -236,11 +275,16 @@
                             </div>
                             <hr>
                             <div class="private box">
+                                <div id="load-insert-foto" class="loader-insert-foto">
+                                    <span class="loader__element"></span>
+                                    <span class="loader__element"></span>
+                                    <span class="loader__element"></span>
+                                </div>
                                 <form action="" method="POST" id="btn-simpan-foto-produk" role="form">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                            <div class="form-select-data-jenis-produk-foto"></div>
+                                                <div class="form-select-data-jenis-produk-foto"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fot_produk">Foto produk</label>
@@ -289,7 +333,7 @@
                                             <button type="reset" id="btn-batal-foto-produk" class="col-12 btn btn-sm btn-danger">Batal</button>
                                         </div>
                                         <div class="col">
-                                            <button type="submit" id="" class="col-12 btn btn-sm btn-info float-right" value="">Simpan</button>
+                                            <button type="submit" id="submit-simpan-foto" class="col-12 btn btn-sm btn-info float-right" value="">Simpan</button>
                                         </div>
                                     </div>
                                 </form>

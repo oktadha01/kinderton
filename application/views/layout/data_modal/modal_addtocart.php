@@ -105,6 +105,20 @@
         z-index: 100000;
     }
 
+    .loader-buat-pesanan {
+        overflow: hidden;
+        position: absolute;
+        top: 45%;
+        bottom: 45%;
+        left: 40%;
+        right: 40%;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        z-index: 100000;
+    }
+
     .loader__element {
         border-radius: 100%;
         border: 5px solid #555;
@@ -152,6 +166,11 @@
 
     <div id="pembayaran-addtocart" class="p-3">
         <div class="container">
+            <div id="load-buat-pesanan" class="loader-buat-pesanan">
+                <span class="loader__element"></span>
+                <span class="loader__element"></span>
+                <span class="loader__element"></span>
+            </div>
             <div class="box_cart pt-1 pb-1">
                 <ul class="text-right">
                     <li>
@@ -243,7 +262,7 @@
                 </div>
                 <div class="col-6">
                     <a href="#page">
-                        <button type="button" id="btn-ok-addtocart" class="col-lg-6 col md-6 col-12 btn btn-sm btn-info float-right" value="">Ok</button>
+                        <button type="button" id="btn-ok-addtocart" class="col-lg-6 col md-6 col-12 btn btn-sm btn-info float-right" value="" disabled>Ok</button>
                         <button type="button" id="btn-upload-bukti" class="col-lg-6 col md-6 col-12 btn btn-sm btn-info float-right" value="">Upload Bukti Pembayaran</button>
                         <button type="button" id="btn-kirim-bukti" class="col-lg-6 col md-6 col-12 btn btn-sm btn-success float-right " value="">Kirim</button>
                     </a>

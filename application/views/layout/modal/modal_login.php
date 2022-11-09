@@ -60,8 +60,8 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Checkbox -->
                                         <div class="form-check mb-0">
-                                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                                            <label class="form-check-label" for="form2Example3">
+                                            <input class="form-check-input me-2" type="checkbox" value="" id="showpass" />
+                                            <label class="form-check-label" for="showpass">
                                                 Show Password
                                             </label>
                                         </div>
@@ -82,11 +82,10 @@
     </div>
 </div>
 <script>
-    // const PassBtn = document.querySelector("#passBtn");
-    // PassBtn.addEventListener("click", () => {
-    //     const input = document.querySelector("#passInput");
-    //     input.getAttribute("type") === "password" ?
-    //         input.setAttribute("type", "text") :
-    //         input.setAttribute("type", "password");
-    // });
+    $('#showpass').click(function(e) {
+        const input = document.querySelector("#password");
+        input.getAttribute("type") === "password" ?
+            input.setAttribute("type", "text") :
+            input.setAttribute("type", "password");
+    });
 </script>

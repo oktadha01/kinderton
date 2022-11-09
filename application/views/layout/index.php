@@ -154,7 +154,7 @@
     ?>
 
     <script>
-        
+       
         $('.dropdown-close-user').click(function(e) {
             // alert('ya');
             $('#dropdown-user').removeClass('show');
@@ -255,6 +255,19 @@
 
         $('#pembayaran-addtocart').hide();
         $('#buat-pesanan-addtocart').click(function() {
+            // document.onreadystatechange = function() {
+            var state = document.readyState
+            if (state == 'interactive') {
+                document.getElementById('load-buat-pesanan').style.visibility = "visible";
+            } else if (state == 'complete') {
+                setTimeout(function() {
+                    document.getElementById('interactive');
+                    document.getElementById('load-buat-pesanan').style.visibility = "hidden";
+                    $('#btn-ok-addtocart').removeAttr('disabled', true)
+                    // document.getElementById('load').style.visibility = "hidden";
+                }, 2500);
+            }
+            // }
             $('#form-buat-pesanan-addtocart').hide();
             $('#pembayaran-addtocart').show();
             $('#total-pembayaran').text($('#total-addtocart').text());
@@ -324,7 +337,6 @@
                             qty: $('.quantity').val(),
                         },
                         success: function(msg) {
-                            alert(msg);
                             $('.notif-cart').load('<?php echo site_url('cart/notif_cart'); ?>');
                             $('#form-buat-pesanan-addtocart').show();
                             $('#pembayaran-addtocart').hide();
@@ -372,7 +384,6 @@
 
                             },
                             success: function(msg) {
-                                alert(msg);
                                 $('#notif-favorit').load('<?php echo site_url('Favorit/notif_favorit'); ?>');
                                 $('.notif-cart').load('<?php echo site_url('cart/notif_cart'); ?>');
                                 $('#form-buat-pesanan-addtocart').show();
@@ -386,6 +397,23 @@
                 close.trigger("click");
 
             });
+        });
+        $(document).on("click", ".pilih-bukti-transfer", function() {
+            var file = $(this).parents().find(".file-bukti-transfer");
+            file.trigger("click");
+        });
+
+        $('#bukti-transfer').change(function(e) {
+            var fileName = e.target.files[0].name;
+            $("#nm-bukti-transfer").val(fileName);
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // get loaded data and render thumbnail.
+                document.getElementById("preview-bukti-transfer").src = e.target.result;
+            };
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
         });
     </script>
     <script>

@@ -157,12 +157,12 @@ class Olah_data extends CI_Controller
 	}
 	function simpan_foto_produk()
 	{
-
 		$config['upload_path'] = "./upload";
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['encrypt_name'] = TRUE;
 
 		$this->load->library('upload', $config);
+
 		if ($this->upload->do_upload("fot_produk")) {
 			$data = array('upload_data' => $this->upload->data());
 
@@ -170,10 +170,13 @@ class Olah_data extends CI_Controller
 			$fot_produk = $data['upload_data']['file_name'];
 			$texture = $this->input->post('texture');
 			$status_foto = $this->input->post('status-foto');
+			$uploadedImage = $this->upload->data();
 
-			$result = $this->M_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
-			echo json_decode($result);
+			$this->resizeImage($uploadedImage['file_name']);
+			$insert = $this->M_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
+			echo json_encode($insert);
 		}
+		exit;
 	}
 
 	function edit_foto_produk()
@@ -184,8 +187,8 @@ class Olah_data extends CI_Controller
 		$config['upload_path'] = "./upload";
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['encrypt_name'] = TRUE;
-
 		$this->load->library('upload', $config);
+
 		if ($this->upload->do_upload("fot_produk")) {
 			$data = array('upload_data' => $this->upload->data());
 
@@ -194,10 +197,13 @@ class Olah_data extends CI_Controller
 			$fot_produk = $data['upload_data']['file_name'];
 			$texture = $this->input->post('texture');
 			$status_foto = $this->input->post('status-foto');
+			$uploadedImage = $this->upload->data();
 
-			$result = $this->M_olah_data->m_edit_foto_produk($id_fotpro, $id_fotjp, $fot_produk, $texture, $status_foto, $fotlama);
-			echo json_decode($result);
+			$this->resizeImage($uploadedImage['file_name']);
+			$update = $this->M_olah_data->m_edit_foto_produk($id_fotpro, $id_fotjp, $fot_produk, $texture, $status_foto, $fotlama);
+			echo json_decode($update);
 		}
+		exit;
 	}
 
 	function edit_fotoproduk()
@@ -223,5 +229,28 @@ class Olah_data extends CI_Controller
 		$id_jp = $this->input->post('id-jp');
 		$result = $this->M_olah_data->m_expired_promo($id_jp);
 		echo json_decode($result);
+	}
+	public function resizeImage($filename)
+	{
+		$source_path = 'upload/' . $filename;
+		$target_path = 'upload/';
+		$config = [
+			'image_library' => 'gd2',
+			'source_image' => $source_path,
+			'new_image' => $target_path,
+			'maintain_ratio' => TRUE,
+			'quality' => '60%',
+			'width' => '2560',
+			'height' => 'auto',
+		];
+		$this->load->library('image_lib', $config);
+		if (!$this->image_lib->resize()) {
+			return [
+				'status' => 'error compress',
+				'message' => $this->image_lib->display_errors()
+			];
+		}
+		$this->image_lib->clear();
+		return 1;
 	}
 }

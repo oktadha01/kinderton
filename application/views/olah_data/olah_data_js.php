@@ -2,7 +2,12 @@
     $(document).ready(function() {
         $('.notif-pesanan').load('<?php echo site_url('chekout/notif_vali_pesanan'); ?>');
         $('.notif-pesanan_dikirim').load('<?php echo site_url('chekout/notif_pesanan_dikirim'); ?>');
-
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
         $('.form-data').load('<?php echo site_url('Olah_data/jenis_produk'); ?>');
         $('#btn-jenis-produk').click(function(e) {
             $('.form-data').load('<?php echo site_url('Olah_data/jenis_produk'); ?>');
@@ -288,8 +293,9 @@
                 });
             }
         });
-
+        $('.loader-insert-foto').hide();
         $("#btn-simpan-foto-produk").submit(function(e) {
+            // alert('ya');
             e.preventDefault();
             var val_simpan = $("#btn-simpan-foto-produk").val();
             var val_ceklis_ubah = $('#val-ceklis-ubah').val();
@@ -297,8 +303,13 @@
             var status_foto = $("#status-foto").find(':selected').val();
             const foto_produk = $('#fot_produk').prop('files')[0];
             if (id_fotjp == '0') {
-                alert('produk tidak boleh kosong');
+                Toast.fire({
+                    type: 'error',
+                    title: 'Jenis produk tidak boleh kosong!!'
+                })
             } else {
+                $("#submit-simpan-foto").attr('disabled', true);
+                $('.loader-insert-foto').show();
                 let formData = new FormData();
                 formData.append('id-fotpro', $('#id-fotpro').val());
                 formData.append('id-fotjp', id_fotjp);
@@ -315,12 +326,15 @@
                         processData: false,
                         contentType: false,
                         success: function(msg) {
-                            // alert(msg);
-                            alert("Data foto produk berhasil di simpan.");
+                            Toast.fire({
+                                type: 'success',
+                                title: 'Foto produk berhasil di simpan'
+                            })
+                            $("#submit-simpan-foto").removeAttr('disabled', true)
+                            $('.loader-insert-foto').hide();
                             $('#form-foto-produk').attr('hidden', true);
                             $('.form-data').load('<?php echo site_url('Olah_data/foto_produk'); ?>');
-                            // form_foto_produk();
-
+                            form_foto_produk();
                         },
                         error: function() {
                             alert("Data Gagal Diupload");
@@ -337,13 +351,16 @@
                             processData: false,
                             contentType: false,
                             success: function(msg) {
-                                alert(msg);
-                                alert("Data foto produk berhasil di simpan.");
+                                Toast.fire({
+                                    type: 'success',
+                                    title: 'Foto berhasil di update'
+                                });
+                                $("#submit-simpan-foto").removeAttr('disabled', true)
+                                $('.loader-insert-foto').hide();
                                 $('#ceklis-ubah-fotpro').prop('checked', false);
                                 $('#form-foto-produk').attr('hidden', true);
                                 $('.form-data').load('<?php echo site_url('Olah_data/foto_produk'); ?>');
-                                // form_foto_produk();
-
+                                form_foto_produk();
                             },
                             error: function() {
                                 alert("Data Gagal Diupload");
@@ -358,12 +375,15 @@
                             processData: false,
                             contentType: false,
                             success: function(msg) {
-                                // alert(msg);
-                                alert("Data foto produk berhasil di simpan.");
+                                Toast.fire({
+                                    type: 'success',
+                                    title: 'Foto berhasil di update'
+                                });
+                                $("#submit-simpan-foto").removeAttr('disabled', true)
+                                $('.loader-insert-foto').hide();
                                 $('#form-foto-produk').attr('hidden', true);
                                 $('.form-data').load('<?php echo site_url('Olah_data/foto_produk'); ?>');
-                                // form_foto_produk();
-
+                                form_foto_produk();
                             },
                             error: function() {
                                 alert("Data Gagal Diupload");

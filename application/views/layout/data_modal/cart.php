@@ -435,6 +435,190 @@
                 ?>
             </div>
         </div>
+        <div id="div2" class="targetDiv">
+            <h6 class="notif-sdh-byr notifsdhbyr"><span class="notif_sdh_byr"></span> Pesanan Sudah Dibayar</h6>
+            <div class="accordion" id="accordion-brg-kms">
+                <?php
+                foreach ($cart_sdhbyr as $data) :
+                ?>
+                    <div class="card mb-2 b-radius">
+                        <div class="card-header cart collapsed pl-1 pr-1 p" data-toggle="collapse" data-target="#coll<?php echo $data->id_cart; ?>" aria-expanded="false">
+                            <span class="accicon"><i class="fas fa-angle-down border-arrow rotate-icon"></i></span>
+                            <div class="row title-cart">
+                                <div class="col pl-1">
+                                    <span class="float-right text-warning font-size-xs"><?php echo $data->status_pembayaran; ?></span>
+                                    <?php
+                                    $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                    $query = $this->db->query($sql);
+                                    if ($query->num_rows() > 0) {
+                                        foreach ($query->result() as $nmproduk) {
+
+                                    ?>
+                                            <div class="mb-1">
+                                                <img src="<?php echo base_url('upload'); ?>/<?php echo $nmproduk->fotpro; ?>" class="size-img" alt="Image">
+                                                <span class="title"><?php echo $nmproduk->nm_jp; ?> || <?php echo $nmproduk->kategori; ?> || <?php echo $nmproduk->gender; ?></span>
+                                                <br class="mb-1">
+                                            </div>
+                                            <!-- <hr class="hr-cart"> -->
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                            <div id="coll<?php echo $data->id_cart; ?>" class="collapse " data-parent="#accordion-brg-kms">
+                                <div class="row">
+                                    <?php
+                                    $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
+                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                    $query = $this->db->query($sql);
+                                    if ($query->num_rows() > 0) {
+                                        foreach ($query->result() as $produk_cart) {
+
+                                    ?>
+
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 pb-1">
+                                                <div class="thumb_cart">
+                                                    <img src="<?php echo base_url('upload'); ?>/<?php echo $produk_cart->fotpro; ?>" class="lazy" alt="Image">
+                                                </div>
+                                                <span class=""><?php echo $produk_cart->nm_jp; ?> || <?php echo $produk_cart->kategori; ?> || <?php echo $produk_cart->gender; ?></span>
+                                                <br>
+                                                <span class=""><?php echo $produk_cart->texture; ?> || <?php echo $produk_cart->size; ?> || <?php echo $produk_cart->qty; ?>X</span>
+                                                <br>
+                                                <?php
+                                                if ($produk_cart->status_produk == 'PROMO') {
+                                                ?>
+                                                    <span class="text-danger">Rp. <?php echo $produk_cart->hrg_diskon; ?></span>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <span class="text-danger">Rp. <?php echo $produk_cart->hrg_awal; ?></span>
+
+                                                <?php
+                                                }
+                                                ?>
+                                                <hr class="hr-cart">
+                                            </div>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                                <div class="container">
+                                    <div class="row pr-3">
+                                        <div class="col-lg-4">
+                                            <h6>Pesanan</h6>
+                                            <ul class="">
+                                                <li>
+                                                    <span class="text-bold">Nama</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->nm_user; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Kota Tujuan</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->kota; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Alamat</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->alamat; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Total Produk</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->total_produk; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Total Barang</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->total_barang; ?></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h6>Jasa Kurir</h6>
+                                            <ul>
+                                                <li>
+                                                    <span class="text-bold">Kurir</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->kurir; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Layanan</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->pelayanan; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">ETD</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->etd; ?> D</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Berat (Kg)</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->berat; ?> Kg</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Ongkir</span>
+                                                    <span class="font-family-cursive">: Rp.<?php echo $data->ongkir; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Subtotal</span>
+                                                    <span class="font-family-cursive">: Rp.<?php echo $data->subtotal; ?></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h6>Mode Pembayaran</h6>
+                                            <ul>
+                                                <li>
+                                                    <span><?php echo $data->mode_pembayaran; ?></span>
+                                                </li>
+                                            </ul>
+                                            <h6>Bukti Transfer</h6>
+                                            <div class="border-detail-pesanan p-1">
+                                                <div class="thumb_cart">
+                                                    <a target="_blank" href="<?php echo base_url('upload/bukti_transfer'); ?>/<?php echo $data->foto_bukti; ?>">
+                                                        <img src="<?php echo base_url('upload/bukti_transfer'); ?>/<?php echo $data->foto_bukti; ?>" class="lazy" alt="Image">
+                                                    </a>
+                                                </div>
+                                                <ul class="pl-6rem">
+                                                    <li>
+                                                        <span class="text-bold">A.N</span>
+                                                        <span class="font-family-cursive">: <?php echo $data->an_pengirim; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="text-bold">Transaksi Bank</span>
+                                                        <span class="font-family-cursive">: <?php echo $data->bank; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="text-bold">Nominal</span>
+                                                        <span class="font-family-cursive">: Rp.<?php echo $data->nominal; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="text-bold">Tgl Bayar</span>
+                                                        <span class="font-family-cursive">: <?php echo $data->tgl_byr; ?></span>
+                                                    </li>
+                                                    <span class="text-warning"><?php echo $data->status_pembayaran; ?></span>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row pr-3 mt-2">
+                                        <div class="col">
+                                            <span class="text-bold float-right">Total Pembayaran <span class="text-danger">Rp.<?php echo $data->total_pembayaran; ?></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container pr-2rem">
+                                <hr class="hr-cart">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class=""><span><?php echo $data->total_produk; ?> Produk</span> <span><?php echo $data->total_barang; ?> Barang</span> Sudah Dibayar</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                endforeach
+                ?>
+            </div>
+        </div>
         <div id="div3" class="targetDiv">
             <h6 class="notif-brg-kms notifbrgkms"><span class="notif_brg_kms"></span> Pesanan Sudah Dikemas</h6>
             <div class="accordion" id="accordion-brg-kms">
@@ -1042,251 +1226,238 @@ if ($query->num_rows() > 0) {
 }
 ?>
 <script>
-    // if ($('.notif-cart').text() == '0') {
-    //     $('#tdk-ada-pesanan').show(200);
-    //     alert('ya');
-    // }else{
+    $(document).ready(function() {
 
-    //     $('#tdk-ada-pesanan').hide();
-    // }
-    $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
-    $('.notif_sdh_byr').load('<?php echo site_url('cart/notif_sdh_byr'); ?>');
-    $('.notif_brg_kms').load('<?php echo site_url('cart/notif_brg_kms'); ?>');
-    $('.notif_dikirim').load('<?php echo site_url('cart/notif_dikirim'); ?>');
-    $('.detail-cart').hide();
-    $('#pembayaran-addtocart').hide();
-    $('#konfrimasi-pembayaran').hide();
-    $('#btn-kirim-bukti,#btn-back,#btn-upload-bukti').show();
-    $('#btn-ok-addtocart, #btn-ubah-pembayaran-addtocart').hide();
-
-    $('.btn-bayar-sekarang').click(function(e) {
-        var id_cart = $(this).data('id-cart');
-        var tgl = $(this).data('tgl');
-        var jam = $(this).data('jam');
-        var mode_bayar = $(this).data('mode-bayar');
-        var kode_pesanan = $(this).data('kode-pesanan');
-        // alert(tgl + '' + jam);
-        var x = setInterval(function() {
-
-            // Tetapkan tanggal kita menghitung mundur
-            var countDownDate = new Date(tgl + ' ' + jam);
-            // Dapatkan tanggal dan waktu hari ini
-            var now = new Date().getTime();
-            var kode = new Date().getTime();
-            // console.log(kode);
-            // Temukan jarak antara sekarang dan tanggal hitung mundur
-            var distance = countDownDate - now;
-
-            // Perhitungan waktu untuk hari, jam, menit dan detik
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Keluarkan hasil dalam elemen dengan id = "demo"
-            document.getElementById("durasi-addtocart").innerHTML = hours + " jam " +
-                minutes + " menit " + seconds + " detik ";
-            $('#kode-cart').text(kode);
-            //Jika hitungan mundur selesai, tulis beberapa teks
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("durasi-addtocart").innerHTML = "EXPIRED";
-            }
-            $('#btn-modal-close').click(function(e) {
-                clearInterval(x);
-
-            });
-            $('#btn-back').click(function(e) {
-                $('#pembayaran-addtocart').hide();
-                $('#konfrimasi-pembayaran').hide();
-                $('#cart').show(200);
-                $('#btn-upload-bukti').show(200);
-                $('#btn-kirim-bukti').hide();
-                clearInterval(x);
-                // reset_form_upload();
-            });
-            $('#btn-upload-bukti').click(function(e) {
-                $('#konfrimasi-pembayaran').show(300);
-                $('#btn-upload-bukti').hide();
-                $('#btn-kirim-bukti').show(200);
-            });
-        }, 1000);
-        // $('#durasi-addtocart').text($('#durasi-pembayaran' + id_cart).text());
-        $('#total-pembayaran').text($('.price-cart' + id_cart).text());
-        $('#jatuh_tempo').text('Jatuh tempo' + tgl + ',' + jam);
-        $('#kode-pesanan').val(kode_pesanan);
-        $('#pembayaran-addtocart').show(200);
-        $('#cart').hide();
-        $('#btn-kirim-bukti').hide();
+        $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
+        $('.notif_sdh_byr').load('<?php echo site_url('cart/notif_sdh_byr'); ?>');
+        $('.notif_brg_kms').load('<?php echo site_url('cart/notif_brg_kms'); ?>');
+        $('.notif_dikirim').load('<?php echo site_url('cart/notif_dikirim'); ?>');
+        $('.detail-cart').hide();
+        $('#pembayaran-addtocart').hide();
+        $('#konfrimasi-pembayaran').hide();
+        $('#btn-kirim-bukti,#btn-back,#btn-upload-bukti').show();
         $('#btn-ok-addtocart, #btn-ubah-pembayaran-addtocart').hide();
-        if (mode_bayar == 'Bank Mandiri') {
-            $('#th-no-addtocart').text('No Rekening');
-            $('#id-no-addtocart').text('1360014983586');
-            $('#id-no-addtocart-val').val('1360014983586');
-            $('.th-nm-pembayaran').text('Bank Mandiri');
-            $('#logo-pembayaran').attr({
-                src: "<?php echo base_url('assets'); ?>/img/logo_mandiri.png"
-            });
-        } else if (mode_bayar == 'Shopee Pay') {
-            $('#th-no-addtocart').text('Virtual Akun');
-            $('#id-no-addtocart').text('893082325788719');
-            $('#id-no-addtocart-val').val('893082325788719');
-            $('.th-nm-pembayaran').text('Shopee Pay');
-            $('#logo-pembayaran').attr({
-                src: "<?php echo base_url('assets'); ?>/img/logo_shopeePay.png"
-            });
-        } else if (mode_bayar == 'GoPay') {
-            $('#th-no-addtocart').text('Virtual Akun');
-            $('#id-no-addtocart').text('087831697017');
-            $('#id-no-addtocart-val').val('087831697017');
-            $('.th-nm-pembayaran').text('GoPay');
-            $('#logo-pembayaran').attr({
-                src: "<?php echo base_url('assets'); ?>/img/logo_gopay.png"
-            });
-        }
-    });
-    $(document).on("click", ".pilih-bukti-transfer", function() {
-        var file = $(this).parents().find(".file-bukti-transfer");
-        file.trigger("click");
-    });
 
-    $('#bukti-transfer').change(function(e) {
-        var fileName = e.target.files[0].name;
-        $("#nm-bukti-transfer").val(fileName);
+        $('.btn-bayar-sekarang').click(function(e) {
+            var state = document.readyState
+            if (state == 'interactive') {
+                document.getElementById('load-buat-pesanan').style.visibility = "visible";
+            } else if (state == 'complete') {
+                setTimeout(function() {
+                    document.getElementById('interactive');
+                    document.getElementById('load-buat-pesanan').style.visibility = "hidden";
+                    // document.getElementById('load').style.visibility = "hidden";
+                }, 2500);
+            }
+            var id_cart = $(this).data('id-cart');
+            var tgl = $(this).data('tgl');
+            var jam = $(this).data('jam');
+            var mode_bayar = $(this).data('mode-bayar');
+            var kode_pesanan = $(this).data('kode-pesanan');
+            // alert(tgl + '' + jam);
+            var x = setInterval(function() {
 
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            // get loaded data and render thumbnail.
-            document.getElementById("preview-bukti-transfer").src = e.target.result;
-        };
-        // read the image file as a data URL.
-        reader.readAsDataURL(this.files[0]);
-    });
-    $('#bank-pengirim').select2();
-    // $('#an-pengirim, #nominal').on('input', function() {
-    //     btn_enable_kirim();
-    // });
+                // Tetapkan tanggal kita menghitung mundur
+                var countDownDate = new Date(tgl + ' ' + jam);
+                // Dapatkan tanggal dan waktu hari ini
+                var now = new Date().getTime();
+                var kode = new Date().getTime();
+                // console.log(kode);
+                // Temukan jarak antara sekarang dan tanggal hitung mundur
+                var distance = countDownDate - now;
 
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-    });
-    $("#btn-kirim-bukti").click(function(e) {
-        // alert('ya');
-        if ($('#an-pengirim').val() == '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Nama pengirim tidak boleh kosong'
-            })
+                // Perhitungan waktu untuk hari, jam, menit dan detik
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        } else if ($("#bank-pengirim").find(':selected').val() == '0') {
-            Toast.fire({
-                type: 'error',
-                title: 'Bank pengirim tidak boleh kosong'
-            })
-        } else if ($('#nominal').val() == '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Nominal pengirim tidak boleh kosong'
-            })
-        } else if ($('#nm-bukti-transfer').val() == '') {
-            Toast.fire({
-                type: 'error',
-                title: 'Bukti transfer tidak boleh kosong'
-            })
-        } else {
-            e.preventDefault();
-            var nama = $('#an-pengirim').val();
-            var nominal = $('#nominal').val();
-            var kode_pesanan = $('#kode-pesanan').val();
-            var bank = $("#bank-pengirim").find(':selected').val();
-            const foto_bukti = $('#bukti-transfer').prop('files')[0];
-            let formData = new FormData();
-            formData.append('an-pengirim', nama);
-            formData.append('nominal', nominal);
-            formData.append('kode-pesanan', kode_pesanan);
-            formData.append('bank', bank);
-            formData.append('foto-bukti', foto_bukti);
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo site_url('cart/simpan_bukti_transfer'); ?>",
-                data: formData,
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function(msg) {
-                    $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
-                    $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
-                    var kode_pesanan = $('#kode-pesanan').val();
-                    var nohp = '<?php echo $useradmin->kontak; ?>';
-                    // var pesan = 'Terikasih sudah order, pesanan kamu segara kami kiri ke alamat anda ...';
-                    var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan #' + kode_pesanan;
-                    var linkWA = 'https://web.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
-                    window.location = linkWA;
-                },
-                error: function() {
-                    alert("Data Gagal Diupload");
-                },
-            });
-        }
-    });
-    new AutoNumeric('#nominal', autoNumericOption);
+                // Keluarkan hasil dalam elemen dengan id = "demo"
+                document.getElementById("durasi-addtocart").innerHTML = hours + " jam " +
+                    minutes + " menit " + seconds + " detik ";
+                $('#kode-cart').text(kode);
+                //Jika hitungan mundur selesai, tulis beberapa teks
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("durasi-addtocart").innerHTML = "EXPIRED";
+                }
+                $('#btn-modal-close').click(function(e) {
+                    clearInterval(x);
 
-    tdk_ada_pesanan();
-    jQuery(function() {
-        $('#tdk-ada-pesanan').hide();
-        $('#div5').hide();
-        jQuery('#showall').click(function() {
-            jQuery('.targetDiv').show();
-        });
-        jQuery('.showSingle').click(function() {
-            jQuery('.targetDiv').hide();
-            $('#div' + $(this).attr('target')).show();
-            $('.font-active').removeClass('font-active');
-            $('.font-' + $(this).attr('target')).addClass('font-active');
-
-            tdk_ada_pesanan();
-        });
-    });
-
-
-    tdk_ada_pesanan();
-
-    function tdk_ada_pesanan() {
-        $("#data-cart").each(function() {
-            var $minHeight = 100;
-            //you need the height of the div you are currently iterating on: use this
-            if ($(this).height() < $minHeight) {
-                $('.tdk-ada-pesanan').hide();
-                $('.tdk-ada-pesanan').show(200);
-                // alert('ya');
-            } else {
-                $('.tdk-ada-pesanan').hide();
+                });
+                $('#btn-back').click(function(e) {
+                    $('#pembayaran-addtocart').hide();
+                    $('#konfrimasi-pembayaran').hide();
+                    $('#cart').show(200);
+                    $('#btn-upload-bukti').show(200);
+                    $('#btn-kirim-bukti').hide();
+                    clearInterval(x);
+                    // reset_form_upload();
+                });
+                $('#btn-upload-bukti').click(function(e) {
+                    $('#konfrimasi-pembayaran').show(300);
+                    $('#btn-upload-bukti').hide();
+                    $('#btn-kirim-bukti').show(200);
+                });
+            }, 1000);
+            // $('#durasi-addtocart').text($('#durasi-pembayaran' + id_cart).text());
+            $('#total-pembayaran').text($('.price-cart' + id_cart).text());
+            $('#jatuh_tempo').text('Jatuh tempo' + tgl + ',' + jam);
+            $('#kode-pesanan').val(kode_pesanan);
+            $('#pembayaran-addtocart').show(200);
+            $('#cart').hide();
+            $('#btn-kirim-bukti').hide();
+            $('#btn-ok-addtocart, #btn-ubah-pembayaran-addtocart').hide();
+            if (mode_bayar == 'Bank Mandiri') {
+                $('#th-no-addtocart').text('No Rekening');
+                $('#id-no-addtocart').text('1360014983586');
+                $('#id-no-addtocart-val').val('1360014983586');
+                $('.th-nm-pembayaran').text('Bank Mandiri');
+                $('#logo-pembayaran').attr({
+                    src: "<?php echo base_url('assets'); ?>/img/logo_mandiri.png"
+                });
+            } else if (mode_bayar == 'Shopee Pay') {
+                $('#th-no-addtocart').text('Virtual Akun');
+                $('#id-no-addtocart').text('893082325788719');
+                $('#id-no-addtocart-val').val('893082325788719');
+                $('.th-nm-pembayaran').text('Shopee Pay');
+                $('#logo-pembayaran').attr({
+                    src: "<?php echo base_url('assets'); ?>/img/logo_shopeePay.png"
+                });
+            } else if (mode_bayar == 'GoPay') {
+                $('#th-no-addtocart').text('Virtual Akun');
+                $('#id-no-addtocart').text('087831697017');
+                $('#id-no-addtocart-val').val('087831697017');
+                $('.th-nm-pembayaran').text('GoPay');
+                $('#logo-pembayaran').attr({
+                    src: "<?php echo base_url('assets'); ?>/img/logo_gopay.png"
+                });
             }
         });
-    }
 
-    function btn_enable_kirim() {
-        if ($('#an-pengirim').val() == '') {
-            alert('ya');
 
-        } else if (($('#nominal').val() == '')) {
+        $('#bank-pengirim').select2();
 
-            alert('ya');
-        } else {
-
-            $('#btn-kirim-bukti').addClass('btn-success').removeClass('btn-disabled').removeAttr('disabled', true);
-        }
-    }
-
-    function reset_form_upload() {
-        $('#an-pengirim, #nominal, #bukti-transfer, #nm-bukti-transfer').val('');
-        $('#preview-bukti-transfer').attr({
-            src: "<?php echo base_url('assets'); ?>/img/80x80.png"
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
         });
-    };
+        $("#btn-kirim-bukti").click(function(e) {
+            // alert('ya');
+            if ($('#an-pengirim').val() == '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Nama pengirim tidak boleh kosong'
+                })
 
-    // });
+            } else if ($("#bank-pengirim").find(':selected').val() == '0') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Bank pengirim tidak boleh kosong'
+                })
+            } else if ($('#nominal').val() == '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Nominal pengirim tidak boleh kosong'
+                })
+            } else if ($('#nm-bukti-transfer').val() == '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Bukti transfer tidak boleh kosong'
+                })
+            } else {
+                e.preventDefault();
+                var nama = $('#an-pengirim').val();
+                var nominal = $('#nominal').val();
+                var kode_pesanan = $('#kode-pesanan').val();
+                var bank = $("#bank-pengirim").find(':selected').val();
+                const foto_bukti = $('#bukti-transfer').prop('files')[0];
+                let formData = new FormData();
+                formData.append('an-pengirim', nama);
+                formData.append('nominal', nominal);
+                formData.append('kode-pesanan', kode_pesanan);
+                formData.append('bank', bank);
+                formData.append('foto-bukti', foto_bukti);
+                $.ajax({
+                    type: 'POST',
+                    url: "<?php echo site_url('cart/simpan_bukti_transfer'); ?>",
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function(msg) {
+                        $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
+                        $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
+                        var kode_pesanan = $('#kode-pesanan').val();
+                        var nohp = '<?php echo $useradmin->kontak; ?>';
+                        // var pesan = 'Terikasih sudah order, pesanan kamu segara kami kiri ke alamat anda ...';
+                        var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan #' + kode_pesanan;
+                        var linkWA = 'https://web.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
+                        window.location = linkWA;
+                    },
+                    error: function() {
+                        alert("Data Gagal Diupload");
+                    },
+                });
+            }
+        });
+        new AutoNumeric('#nominal', autoNumericOption);
+
+        tdk_ada_pesanan();
+        jQuery(function() {
+            $('#tdk-ada-pesanan').hide();
+            $('#div5').hide();
+            jQuery('#showall').click(function() {
+                jQuery('.targetDiv').show();
+            });
+            jQuery('.showSingle').click(function() {
+                jQuery('.targetDiv').hide();
+                $('#div' + $(this).attr('target')).show();
+                $('.font-active').removeClass('font-active');
+                $('.font-' + $(this).attr('target')).addClass('font-active');
+
+                tdk_ada_pesanan();
+            });
+        });
+
+
+        tdk_ada_pesanan();
+
+        function tdk_ada_pesanan() {
+            $("#data-cart").each(function() {
+                var $minHeight = 100;
+                //you need the height of the div you are currently iterating on: use this
+                if ($(this).height() < $minHeight) {
+                    $('.tdk-ada-pesanan').hide();
+                    $('.tdk-ada-pesanan').show(200);
+                    // alert('ya');
+                } else {
+                    $('.tdk-ada-pesanan').hide();
+                }
+            });
+        }
+
+        function btn_enable_kirim() {
+            if ($('#an-pengirim').val() == '') {
+                alert('ya');
+
+            } else if (($('#nominal').val() == '')) {
+
+                alert('ya');
+            } else {
+
+                $('#btn-kirim-bukti').addClass('btn-success').removeClass('btn-disabled').removeAttr('disabled', true);
+            }
+        }
+
+        function reset_form_upload() {
+            $('#an-pengirim, #nominal, #bukti-transfer, #nm-bukti-transfer').val('');
+            $('#preview-bukti-transfer').attr({
+                src: "<?php echo base_url('assets'); ?>/img/80x80.png"
+            });
+        };
+
+    });
 </script>
