@@ -154,6 +154,7 @@
     ?>
 
     <script>
+
         $('.dropdown-close-user').click(function(e) {
             // alert('ya');
             $('#dropdown-user').removeClass('show');
