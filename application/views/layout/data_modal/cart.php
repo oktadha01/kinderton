@@ -1337,7 +1337,7 @@ if ($query->num_rows() > 0) {
 
 
         $('#bank-pengirim').select2();
-
+        $('.loader-bayar-pesanan').hide();
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -1368,6 +1368,10 @@ if ($query->num_rows() > 0) {
                     title: 'Bukti transfer tidak boleh kosong'
                 })
             } else {
+                $('.loader-bayar-pesanan').show();
+                $('#btn-kirim-bukti, #btn-back').hide();
+                $('.select2-selection,.pilih-bukti-transfer').addClass('btn-disabled').attr('disabled', true);
+                $('#an-pengirim,#nominal,#bank-pengirim,#nm-bukti-transfer').addClass('input_disabled').attr('disabled', true);
                 e.preventDefault();
                 var nama = $('#an-pengirim').val();
                 var nominal = $('#nominal').val();
@@ -1390,6 +1394,10 @@ if ($query->num_rows() > 0) {
                     success: function(msg) {
                         $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
                         $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
+                        $('.loader-bayar-pesanan').hide();
+                        $('#btn-kirim-bukti, #btn-back').show();
+                        $('.select2-selection,.pilih-bukti-transfer').removeClass('btn-disabled').removeAttr('disabled', true);
+                        $('#an-pengirim,#nominal,#bank-pengirim,#nm-bukti-transfer').removeClass('input_disabled').removeAttr('disabled', true);
                         var kode_pesanan = $('#kode-pesanan').val();
                         var nohp = '<?php echo $useradmin->kontak; ?>';
                         // var pesan = 'Terikasih sudah order, pesanan kamu segara kami kiri ke alamat anda ...';

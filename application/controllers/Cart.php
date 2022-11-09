@@ -148,6 +148,7 @@ class Cart extends CI_Controller
         if ($this->upload->do_upload("foto-bukti")) {
             $data = array('upload_data' => $this->upload->data());
             $kode_pembayaran = $this->input->post('kode-pesanan');
+            $uploadedImage = $this->upload->data();
             $data_upload_bukti = array(
 
                 'kode_pesanan'  => $this->input->post('kode-pesanan'),
@@ -158,8 +159,33 @@ class Cart extends CI_Controller
                 'tgl_byr'          => $convert_tgl_tgl_byr,
             );
 
+            $this->resizeImage($uploadedImage['file_name']);
             $result = $this->m_cart->m_simpan_bukti_transfer($data_upload_bukti, $kode_pembayaran);
             echo json_decode($result);
         }
+        exit;
+    }
+    public function resizeImage($filename)
+    {
+        $source_path = 'upload/bukti_transfer/' . $filename;
+        $target_path = 'upload/bukti_transfer/';
+        $config = [
+            'image_library' => 'gd2',
+            'source_image' => $source_path,
+            'new_image' => $target_path,
+            'maintain_ratio' => TRUE,
+            'quality' => '60%',
+            'width' => '2560',
+            'height' => 'auto',
+        ];
+        $this->load->library('image_lib', $config);
+        if (!$this->image_lib->resize()) {
+            return [
+                'status' => 'error compress',
+                'message' => $this->image_lib->display_errors()
+            ];
+        }
+        $this->image_lib->clear();
+        return 1;
     }
 }

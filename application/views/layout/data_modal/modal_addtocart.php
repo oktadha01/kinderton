@@ -119,6 +119,20 @@
         z-index: 100000;
     }
 
+    .loader-bayar-pesanan {
+        overflow: hidden;
+        position: absolute;
+        top: 45%;
+        bottom: 45%;
+        left: 40%;
+        right: 40%;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        z-index: 100000;
+    }
+
     .loader__element {
         border-radius: 100%;
         border: 5px solid #555;
@@ -214,6 +228,11 @@
             </div>
             <hr class="hr-addtocart">
             <div id="konfrimasi-pembayaran" class="row">
+                <div id="load-bayar-pesanan" class="loader-bayar-pesanan">
+                    <span class="loader__element"></span>
+                    <span class="loader__element"></span>
+                    <span class="loader__element"></span>
+                </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <label for="an-pengirim">Nama</label>
                     <div class="form-group">
