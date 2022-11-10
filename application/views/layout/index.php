@@ -87,7 +87,18 @@
     include_once 'modal/modal_login.php';
     // include_once 'modal/favorit/modal_favorit.php';
     ?>
+    <?php
+    $sql = "SELECT * FROM user WHERE privilage='admin'";
+    $query = $this->db->query($sql);
+    if ($query->num_rows() > 0) {
+        foreach ($query->result() as $useradmin) {
 
+    ?>
+            <input type="text" id="no-admin" value="<?php echo $useradmin->kontak; ?>" hidden>
+    <?php
+        }
+    }
+    ?>
     <!-- COMMON SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -154,7 +165,6 @@
     ?>
 
     <script>
-
         $('.dropdown-close-user').click(function(e) {
             // alert('ya');
             $('#dropdown-user').removeClass('show');

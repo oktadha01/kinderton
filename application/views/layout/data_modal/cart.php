@@ -1213,18 +1213,7 @@
         </div>
     </div>
 </div>
-<?php
-$sql = "SELECT * FROM user WHERE privilage='admin'";
-$query = $this->db->query($sql);
-if ($query->num_rows() > 0) {
-    foreach ($query->result() as $useradmin) :
 
-?>
-        <!-- <p><?php echo $useradmin->nm_user; ?></p> -->
-<?php
-    endforeach;
-}
-?>
 <script>
     $(document).ready(function() {
 
@@ -1346,6 +1335,7 @@ if ($query->num_rows() > 0) {
         });
         $("#btn-kirim-bukti").click(function(e) {
             // alert('ya');
+
             if ($('#an-pengirim').val() == '') {
                 Toast.fire({
                     type: 'error',
@@ -1394,19 +1384,31 @@ if ($query->num_rows() > 0) {
                     success: function(msg) {
                         $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
                         $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
-                        $('.loader-bayar-pesanan').hide();
                         $('#btn-kirim-bukti, #btn-back').show();
+                        $('.loader-bayar-pesanan').hide();
                         $('.select2-selection,.pilih-bukti-transfer').removeClass('btn-disabled').removeAttr('disabled', true);
                         $('#an-pengirim,#nominal,#bank-pengirim,#nm-bukti-transfer').removeClass('input_disabled').removeAttr('disabled', true);
                         var state = document.readyState
-                        if (state == 'interactive') {} else if (state == 'complete') {
+                        if (state == 'interactive') {
+                        } else if (state == 'complete') {
                             setTimeout(function() {
                                 document.getElementById('interactive');
-                                var kode_pesanan = $('#kode-pesanan').val();
-                                var nohp = <?php echo $useradmin->kontak; ?>;
-                                var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan (' + kode_pesanan + ')';
-                                var linkWA = 'https://api.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
-                                window.location = linkWA;
+                                $("body").each(function() {
+                                    var kode_pesanan = $('#kode-pesanan').val();
+                                    var nohp = $('#no-admin').val();
+                                    var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan (' + kode_pesanan + ')';
+                                    var $minWidth = 900;
+                                    //you need the height of the div you are currently iterating on: use this
+                                    if ($(this).width() < $minWidth) {
+                                        alert('mobile');
+                                        var linkWA = 'https://api.whatsapp.com/send?phone='+nohp+'&text='+pesan;
+                                        window.location = linkWA;
+                                    } else {
+                                        alert('dekstop');
+                                        var linkWA = 'https://web.whatsapp.com/send?phone='+nohp+'&text='+pesan;
+                                        window.location = linkWA;
+                                    }
+                                });
                             }, 2500);
                         }
                     },
@@ -1418,7 +1420,6 @@ if ($query->num_rows() > 0) {
         });
         new AutoNumeric('#nominal', autoNumericOption);
 
-        tdk_ada_pesanan();
         jQuery(function() {
             $('#tdk-ada-pesanan').hide();
             $('#div5').hide();
@@ -1435,7 +1436,6 @@ if ($query->num_rows() > 0) {
             });
         });
 
-
         tdk_ada_pesanan();
 
         function tdk_ada_pesanan() {
@@ -1444,7 +1444,7 @@ if ($query->num_rows() > 0) {
                 //you need the height of the div you are currently iterating on: use this
                 if ($(this).height() < $minHeight) {
                     $('.tdk-ada-pesanan').hide();
-                    $('.tdk-ada-pesanan').show(200);
+                    // $('.tdk-ada-pesanan').show(200);
                     // alert('ya');
                 } else {
                     $('.tdk-ada-pesanan').hide();
