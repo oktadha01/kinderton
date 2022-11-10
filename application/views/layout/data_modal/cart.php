@@ -1392,22 +1392,20 @@ if ($query->num_rows() > 0) {
                     processData: false,
                     contentType: false,
                     success: function(msg) {
+                        $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
+                        $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
+                        $('.loader-bayar-pesanan').hide();
+                        $('#btn-kirim-bukti, #btn-back').show();
+                        $('.select2-selection,.pilih-bukti-transfer').removeClass('btn-disabled').removeAttr('disabled', true);
+                        $('#an-pengirim,#nominal,#bank-pengirim,#nm-bukti-transfer').removeClass('input_disabled').removeAttr('disabled', true);
                         var state = document.readyState
-                        if (state == 'interactive') {
-                            $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
-                            $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
-                            $('.loader-bayar-pesanan').hide();
-                            $('#btn-kirim-bukti, #btn-back').show();
-                            $('.select2-selection,.pilih-bukti-transfer').removeClass('btn-disabled').removeAttr('disabled', true);
-                            $('#an-pengirim,#nominal,#bank-pengirim,#nm-bukti-transfer').removeClass('input_disabled').removeAttr('disabled', true);
-                        } else if (state == 'complete') {
+                        if (state == 'interactive') {} else if (state == 'complete') {
                             setTimeout(function() {
                                 document.getElementById('interactive');
                                 var kode_pesanan = $('#kode-pesanan').val();
                                 var nohp = <?php echo $useradmin->kontak; ?>;
-                                // var pesan = 'Terikasih sudah order, pesanan kamu segara kami kiri ke alamat anda ...';
                                 var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan (' + kode_pesanan + ')';
-                                var linkWA = 'https://api.whatsapp.com/send?phone='+nohp+'&text='+pesan;
+                                var linkWA = 'https://api.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
                                 window.location = linkWA;
                             }, 2500);
                         }
