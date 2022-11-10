@@ -251,7 +251,7 @@
                     </div>
                     <label for="nominal">Nominal Pembayaran</label>
                     <div class="form-group">
-                        <input type="number" id="nominal" name="nominal" class="form-control" placeholder="0.00" autocomplete="off">
+                        <input type="text" id="nominal" name="nominal" class="form-control" placeholder="0.00" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
