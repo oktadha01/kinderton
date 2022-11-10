@@ -1399,10 +1399,10 @@ if ($query->num_rows() > 0) {
                         $('.select2-selection,.pilih-bukti-transfer').removeClass('btn-disabled').removeAttr('disabled', true);
                         $('#an-pengirim,#nominal,#bank-pengirim,#nm-bukti-transfer').removeClass('input_disabled').removeAttr('disabled', true);
                         var kode_pesanan = $('#kode-pesanan').val();
-                        var nohp = '(<?php echo $useradmin->kontak; ?>)';
+                        var nohp = <?php echo $useradmin->kontak; ?>;
                         // var pesan = 'Terikasih sudah order, pesanan kamu segara kami kiri ke alamat anda ...';
-                        var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanans ' + kode_pesanan;
-                        var linkWA = 'https://api.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
+                        var pesan = 'Hallo kak saya mau konfirmasi pembayaran dengan kode pesanan (' + kode_pesanan + ')';
+                        var linkWA = 'https://api.whatsapp.com/send?phone='+nohp+'&text='+pesan;
                         window.location = linkWA;
                     },
                     error: function() {
