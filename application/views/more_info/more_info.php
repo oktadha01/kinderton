@@ -10,6 +10,11 @@
                 <h6 class="mb-1 mt-1">Shopee</h6>
             </div>
         </a>
+        <a href="https://www.tiktok.com/@kinderton.id">
+            <div class="col-12 btn-more-info p-2 mb-3">
+                <h6 class="mb-1 mt-1">Tiktok Shop</h6>
+            </div>
+        </a>
         <a href="https://www.instagram.com/kinderton.id/">
             <div class="col-12 btn-more-info p-2 mb-3">
                 <h6 class="mb-1 mt-1">Instagram</h6>

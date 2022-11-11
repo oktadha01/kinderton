@@ -379,7 +379,6 @@
         <!-- /products_carousel -->
     </div>
     <!-- /container -->
-
 </main>
 
 <!-- /add_cart_panel -->
