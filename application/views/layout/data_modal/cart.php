@@ -1630,10 +1630,10 @@
                                     var $minWidth = 900;
                                     //you need the height of the div you are currently iterating on: use this
                                     if ($(this).width() < $minWidth) {
-                                        var linkWA = 'https://api.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
+                                        var linkWA = 'https://api.whatsapp.com/send?phone='+nohp+'&text='+pesan;
                                         window.location = linkWA;
                                     } else {
-                                        var linkWA = 'https://web.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
+                                        var linkWA = 'https://web.whatsapp.com/send?phone='+nohp+'&text='+pesan;
                                         window.location = linkWA;
                                     }
                                 });
