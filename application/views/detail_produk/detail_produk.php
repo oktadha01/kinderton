@@ -219,11 +219,11 @@
     <!-- /container -->
 
     <div class="container margin_60_35">
-        <div class="main_title">
+        <!-- <div class="main_title">
             <h2>Related</h2>
             <span>Products</span>
             <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-        </div>
+        </div> -->
         <div class="owl-carousel owl-theme products_carousel bg-dashboard">
             <?php
             $sql = "SELECT * FROM jenis_produk WHERE status_produk = 'HOT' OR status_produk = 'NEW' OR status_produk = 'PROMO'";

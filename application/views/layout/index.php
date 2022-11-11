@@ -82,10 +82,8 @@
     </div>
     <div id="toTop"></div><!-- Back to top button -->
     <?php
-    // include_once 'modal/modal_detail_produk.php';
     include_once 'data_modal/modal_addtocart.php';
     include_once 'modal/modal_login.php';
-    // include_once 'modal/favorit/modal_favorit.php';
     ?>
     <?php
     $sql = "SELECT * FROM user WHERE privilage='admin'";
