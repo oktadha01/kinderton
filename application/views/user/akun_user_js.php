@@ -50,11 +50,16 @@
         $('.kota_tujuan').addClass('input_disabled').attr('disabled');
         $('#nm-user,#gmail,#kontak,#alamat').addClass('input_disabled').attr('readonly');
     });
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
 
     $('#btn-simpan-user').click(function(e) {
         var val_kota_tujuan = $("#kota_tujuan").find(':selected').val();
         var text_kota_tujuan = $("#kota_tujuan").find(':selected').text();
-        alert(val_kota_tujuan + text_kota_tujuan)
         let formData = new FormData();
         formData.append('id-user', <?= $this->session->userdata("id_user"); ?>);
         formData.append('nm-user', $('#nm-user').val());
@@ -71,7 +76,14 @@
             processData: false,
             contentType: false,
             success: function(msg) {
-                alert(msg);
+                Toast.fire({
+                    type: 'success',
+                    title: 'Success'
+                })
+                $('#btn-simpan-user,#btn-batal-user').hide();
+                $('#btn-edit-user').show(200);
+                $('.kota_tujuan').addClass('input_disabled').attr('disabled');
+                $('#nm-user,#gmail,#kontak,#alamat').addClass('input_disabled').attr('readonly');
             },
             error: function() {
                 alert("Data Gagal Diupload");

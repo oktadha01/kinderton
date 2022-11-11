@@ -263,13 +263,13 @@
                         <label for="bukti-transfer">Foto Bukti transfer</label>
                         <div class="input-group">
                             <input type="file" id="bukti-transfer" name="bukti_transfer" class="file-bukti-transfer" hidden required>
-                            <input type="text" id="nm-bukti-transfer" class="pilih-bukti-transfer form-control" placeholder="Upload Gambar" required>
+                            <input type="text" id="nm-bukti-transfer" class="pilih-bukti-transfer form-control" placeholder="Foto bukti transfer" required>
                             <div class="input-group-append">
                                 <button type="button" id="" class="pilih-bukti-transfer browse btn btn-dark">Upload Bukti</button>
                             </div>
                         </div>
                     </div>
-                    <img src="<?php echo base_url('assets'); ?>/img/80x80.png" id="preview-bukti-transfer" class="pilih-bukti-transfer img-thumbnail max-height-14rem">
+                    <img src="" id="preview-bukti-transfer" class="img-thumbnail max-height-14rem">
                 </div>
             </div>
             <div class="row">

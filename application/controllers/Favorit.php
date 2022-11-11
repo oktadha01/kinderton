@@ -82,7 +82,12 @@ class Favorit extends CI_Controller
             $data = $this->m_favorit->m_edit_favorit($data, $action);
         }
     }
-
+    function hapus_data_favorit()
+    {
+        $id_favorit = $this->input->post('id-favorit');
+        $data = $this->m_favorit->m_hapus_data_favorit($id_favorit);
+        echo json_encode($data);
+    }
     function notif_favorit()
     {
         $data_user = $this->session->userdata("id_user");

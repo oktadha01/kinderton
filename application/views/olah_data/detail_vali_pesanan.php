@@ -52,12 +52,20 @@
             ?>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
+            <div class="col-lg-4 col-md-4 col-12">
 
                 <ul class="pl-3">
                     <li>
                         <span class="text-bold">Nama</span>
                         <span class="font-family-cursive">: <?php echo $data->nm_user; ?></span>
+                    </li>
+                    <li>
+                        <span class="text-bold">E-mail</span>
+                        <span class="font-family-cursive">: <?php echo $data->gmail; ?></span>
+                    </li>
+                    <li>
+                        <span class="text-bold">Kontak</span>
+                        <span class="font-family-cursive">: <?php echo $data->kontak; ?></span>
                     </li>
                     <li>
                         <span class="text-bold">Kota Tujuan</span>
@@ -67,6 +75,10 @@
                         <span class="text-bold">Alamat</span>
                         <span class="font-family-cursive">: <?php echo $data->alamat; ?></span>
                     </li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-12">
+                <ul class="pl-3">
                     <li>
                         <span class="text-bold">Total Produk</span>
                         <span class="font-family-cursive">: <?php echo $data->total_produk; ?></span>
@@ -101,7 +113,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-lg-6 col-md-6 col-12">
+            <div class="col-lg-5 col-md-5 col-12">
                 <h6>Mode Pembayaran</h6>
                 <ul>
                     <li>
@@ -173,16 +185,43 @@
                 <?php
                 if ($data->status_pembayaran == 'Sudah Bayar') {
                 ?>
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input chekbox" type="checkbox" name="" id="acc" data-action="Dikemas">
-                            <label for="acc" class="custom-control-label">Acc</label>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input chekbox" type="checkbox" name="" id="acc" data-action="Dikemas">
+                                    <label for="acc" class="custom-control-label">Acc</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input chekbox" type="checkbox" name="" id="tolak" data-action="Di-Tolak">
+                                    <label for="tolak" class="custom-control-label">Tolak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-12">
+                            <div id="form-ket-tolak" class="form-group">
+                                <textarea type="text" id="ket-tolak" name="ket_ditolak" class="form-control" rows="3" placeholder="Keterangan ditolak ..."></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input chekbox" type="checkbox" name="" id="tolak" data-action="Di Tolak">
-                            <label for="tolak" class="custom-control-label">Tolak</label>
+                <?php
+                } else if ($data->status_pembayaran == 'Di-Tolak') {
+                ?>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h6 class="text-danger"><?php echo $data->status_pembayaran; ?></h6>
+                        </div>
+                        <div class="col-lg-6 pl-0 pr-0">
+                            <div id="" class="form-group">
+                                <textarea type="text" id="" name="" class="form-control" rows="3" readonly><?php echo $data->ket_ditolak; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-sm btn-danger float-right hapus-data-pesana" data-tr="<?php echo $data->status_pembayaran; ?><?php echo $data->id_cart; ?>" data-kode-pesanan="<?php echo $data->kode_pesanan; ?>" data-foto-bukti="<?php echo $data->foto_bukti; ?>" value="">Hapus data pesanan</button>
                         </div>
                     </div>
                 <?php
@@ -237,9 +276,9 @@ if ($query->num_rows() > 0) {
 }
 ?>
 <script>
-    
-    $('#btn-acc').hide()
-    $('#btn-tolak').hide()
+    $('#btn-acc').hide();
+    $('#btn-tolak').hide();
+    $('#form-ket-tolak').hide();
     // $('#btn-kirim-pesanan').hide()
     action_vali_pesanan()
     $('.chekbox').click(function(e) {
@@ -258,6 +297,7 @@ if ($query->num_rows() > 0) {
         let formData = new FormData();
         formData.append('kode-cart', $(this).data('kode-cart'));
         formData.append('status-pembayaran', $('.action-vali-pesanan').val());
+        formData.append('ket-tolak', $('#ket-tolak').val());
         formData.append('no-resi', $('#no-resi').val());
         formData.append('jam-kirim', $('#jam-kirim').text());
         formData.append('etd-kirim', $('#etd-kirim').val());
@@ -269,7 +309,7 @@ if ($query->num_rows() > 0) {
             processData: false,
             contentType: false,
             success: function(msg) {
-                alert(msg);
+
                 $('#detail-pesanan').attr('hidden', true);
                 $('.form-data').load('<?php echo site_url('Chekout/vali_pesanan'); ?>');
                 $('.notif-pesanan').load('<?php echo site_url('chekout/notif_vali_pesanan'); ?>');
@@ -293,18 +333,54 @@ if ($query->num_rows() > 0) {
         action_vali_pesanan();
     });
 
+    $('.hapus-data-pesana').click(function(e) {
+        var kode = $(this).data('kode-pesanan');
+        var foto_bukti = $(this).data('foto-bukti');
+        var tr = $(this).data('tr');
+        // Delete id
+        var id_jp = $(this).data('id-jp');
+        $('#id-jp').val(id_jp);
+        var confirmalert = confirm("Are you sure?");
+        if (confirmalert == true) {
+            let formData = new FormData();
+            formData.append('kode-pesanan', kode);
+            formData.append('foto-bukti', foto_bukti);
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo site_url('Chekout/hapus_data_pesanan'); ?>",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(msg) {
+                    $('#detail-pesanan').attr('hidden', true);
+                    jQuery('html,body').animate({
+                        scrollTop: 0
+                    });
+                    $('#' + tr).closest('tr').css('background', 'tomato');
+                    $('#' + tr).closest('tr').fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                }
+            });
+        }
+    });
+
     function action_vali_pesanan() {
         if ($('.action-vali-pesanan').val() == 'Dikemas') {
-            $('#btn-acc').show(200)
-            $('#btn-tolak').hide()
+            $('#btn-acc').show(200);
+            $('#btn-tolak').hide();
+            $('#form-ket-tolak').hide();
 
-        } else if ($('.action-vali-pesanan').val() == 'Di Tolak') {
-            $('#btn-acc').hide()
-            $('#btn-tolak').show(200)
+        } else if ($('.action-vali-pesanan').val() == 'Di-Tolak') {
+            $('#btn-acc').hide();
+            $('#btn-tolak').show(200);
+            $('#form-ket-tolak').show(200);
 
         } else {
-            $('#btn-acc').hide(200)
-            $('#btn-tolak').hide(200)
+            $('#form-ket-tolak').hide();
+            $('#btn-acc').hide(200);
+            $('#btn-tolak').hide(200);
 
         }
 

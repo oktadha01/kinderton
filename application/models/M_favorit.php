@@ -32,6 +32,13 @@ class M_favorit extends CI_Model
             return true;
         }
     }
+
+    function m_hapus_data_favorit($id_favorit)
+    {
+        $foto = $this->db->query("DELETE FROM favorit WHERE id_favorit='$id_favorit'");
+        return $foto;
+    }
+
     function m_data_favorit()
     {
         $data_user = $this->session->userdata("id_user");

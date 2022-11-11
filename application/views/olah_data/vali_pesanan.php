@@ -119,6 +119,9 @@
                             if ('<?php echo $data->status_pembayaran; ?>' == 'Dikemas') {
                                 $('#<?php echo $data->status_pembayaran; ?><?php echo $data->id_cart; ?>').addClass('bg-warning');
                                 $('#btn-kirim-pesanan<?php echo $data->id_cart; ?>').removeClass('btn-disabled').addClass('bg-gradient-info elevation-3')
+                            } else if ('<?php echo $data->status_pembayaran; ?>' == 'Di-Tolak') {
+                                $('#<?php echo $data->status_pembayaran; ?><?php echo $data->id_cart; ?>').addClass('bg-danger');
+                                $('#btn-kirim-pesanan<?php echo $data->id_cart; ?>').removeClass('btn-disabled').addClass('bg-gradient-info elevation-3')
                             }
                         </script>
                     <?php

@@ -23,6 +23,7 @@ class Cart extends CI_Controller
         $data['cart_sdhbyr'] = $this->m_cart->m_data_cart_sdhbyr();
         $data['cart_brgkms'] = $this->m_cart->m_data_cart_brgkms();
         $data['cart_dikirim'] = $this->m_cart->m_data_cart_dikirim();
+        $data['cart_ditolak'] = $this->m_cart->m_data_cart_ditolak();
         $data['cart_selesai_dikirim'] = $this->m_cart->m_data_cart_selesai_dikirim();
         // $data['cart_riwayat_pesanan'] = $this->m_cart->m_data_cart_riwayat_pesanan();
         $data['_view'] = 'layout/data_modal/cart';
@@ -32,7 +33,7 @@ class Cart extends CI_Controller
     function notif_cart()
     {
         $data_user = $this->session->userdata("id_user");
-        $sql = "SELECT * FROM cart WHERE cart_user = $data_user AND status_pembayaran IN ('Belum Bayar','Sudah Bayar','Dikemas','Dikirim') 
+        $sql = "SELECT * FROM cart WHERE cart_user = $data_user AND status_pembayaran IN ('Belum Bayar','Sudah Bayar','Dikemas','Dikirim','Di-Tolak') 
         -- AND status_pembayaran = 'Belum Bayar'
         -- AND status_pembayaran = 'Sudah Bayar'
         -- AND status_pembayaran = 'Dikemas'
@@ -93,6 +94,25 @@ class Cart extends CI_Controller
                 $('.notifsdhbyr').attr('hidden', true);
             } else {
                 $('.notifsdhbyr').removeAttr('hidden', true);
+            }
+        </script>
+    <?php
+    }
+    function notif_ditolak()
+    {
+        $data_user = $this->session->userdata("id_user");
+        $sql = "SELECT * FROM cart WHERE cart_user = $data_user AND status_pembayaran = 'Di-Tolak'";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+        } else {
+        }
+        echo json_encode($query->num_rows());
+    ?>
+        <script>
+            if (<?= $query->num_rows(); ?> == '0') {
+                $('.notifditolak').attr('hidden', true);
+            } else {
+                $('.notifditolak').removeAttr('hidden', true);
             }
         </script>
     <?php

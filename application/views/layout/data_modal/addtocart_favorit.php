@@ -173,7 +173,7 @@
                                 </div>
                             </td>
                             <td class="options">
-                                <a href="#"><i class="ti-trash"></i></a>
+                                <a href="#" class="hapus-data-favorit" data-id-favorit="<?php echo $data->id_favorit; ?>"><i class="ti-trash"></i></a>
                             </td>
                         </tr>
                         <script>
@@ -202,18 +202,9 @@
 </div>
 
 <script>
-    $("#data-favorit").each(function() {
-        var $minHeight = 100;
-        //you need the height of the div you are currently iterating on: use this
-        if ($(this).height() < $minHeight) {
-            $('.tdk-ada-pesanan-favorit').show(200);
-            $('.detail-cart').hide();
-            // alert('ya');
-        } else {
-            $('.tdk-ada-pesanan-favorit').hide();
-            $('.detail-cart').show();
-        }
-    });
+    tdk_ada_pesanan_favorit();
+
+
     $('#btn-ok-addtocart').val('favorit');
     $('#total-berat-addtocart').val('0');
     $('#cart, #btn-kirim-bukti, #konfrimasi-pembayaran,#btn-back,#btn-upload-bukti').hide();
@@ -575,4 +566,48 @@
             }
         });
     });
+
+    $('.hapus-data-favorit').click(function(e) {
+        var el = this;
+
+        // Delete id
+        var id_favorit = $(this).data('id-favorit');
+        var confirmalert = confirm("Are you sure?");
+        if (confirmalert == true) {
+            let formData = new FormData();
+            formData.append('id-favorit', id_favorit);
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo site_url('favorit/hapus_data_favorit') ?>",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(msg) {
+                    $('#notif-favorit').load('<?php echo site_url('Favorit/notif_favorit'); ?>');
+                    $(el).closest('tr').css('background', 'tomato');
+                    $(el).closest('tr').fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                    tdk_ada_pesanan_favorit();
+                }
+            });
+        }
+    });
+
+    function tdk_ada_pesanan_favorit() {
+
+        $("#data-favorit").each(function() {
+            var $minHeight = 100;
+            //you need the height of the div you are currently iterating on: use this
+            if ($(this).height() < $minHeight) {
+                $('.tdk-ada-pesanan-favorit').show(200);
+                $('.detail-cart').hide();
+                // alert('ya');
+            } else {
+                $('.tdk-ada-pesanan-favorit').hide();
+                $('.detail-cart').show();
+            }
+        });
+    }
 </script>

@@ -55,6 +55,7 @@
                   <?php if ($this->session->userdata("privilage") == 'admin') { ?>
                      <li class="float-right list-none">
                         <a href="<?php echo base_url('Olah_data'); ?>" class="ml-3 a-header-icon"><i class="fa-solid fa-database menu-icon-header"></i>
+                           <span id="" class="badge badge-success navbar-badge-db notif-pesanan"></span>
                         </a>
                         <a href="#" class="ml-3 a-header-icon a-header-icon-user" data-toggle="dropdown"><span class="user-acaunt mr-1"><?= $this->session->userdata("nm_user") ?></span> <i class="fa-regular fa-user menu-icon-header"></i>
                         </a>

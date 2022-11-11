@@ -55,14 +55,14 @@ class M_chekout extends CI_Model
 
         $this->db->select('*');
         $this->db->from('cart');
-        $this->db->where("(status_pembayaran='Sudah Bayar' OR status_pembayaran='Dikemas')", NULL, FALSE);
+        $this->db->where("(status_pembayaran='Sudah Bayar' OR status_pembayaran='Dikemas' OR status_pembayaran='Di-Tolak')", NULL, FALSE);
         $this->db->join('bukti_transfer', 'bukti_transfer.kode_pesanan = cart.kode_cart');
         $this->db->order_by('id_cart', 'desc');
         $query = $this->db->get();
         return $query->result();
     }
 
-    function m_acc_pesanan($kode_cart, $status_pembayaran, $jam_kirim, $etd_kirim, $no_resi)
+    function m_acc_pesanan($kode_cart, $status_pembayaran, $jam_kirim, $etd_kirim, $no_resi, $ket_tolak)
     {
         if ($status_pembayaran == 'Dikirim') {
             $tgl        = mktime(0, 0, 0, date("n"), date("j"), date("Y"));
@@ -71,6 +71,15 @@ class M_chekout extends CI_Model
                 ->set('jam_kirim', $jam_kirim)
                 ->set('no_resi', $no_resi)
                 ->set('etd_kirim', $etd_kirim)
+                ->where('kode_pesanan', $kode_cart)
+                ->update('bukti_transfer');
+            $update_cart = $this->db->set('status_pembayaran', $status_pembayaran)
+                ->where('kode_cart', $kode_cart)
+                ->update('cart');
+            return $update_bukti;
+            return $update_cart;
+        } else if ($status_pembayaran == 'Di-Tolak') {
+            $update_bukti = $this->db->set('ket_ditolak', $ket_tolak)
                 ->where('kode_pesanan', $kode_cart)
                 ->update('bukti_transfer');
             $update_cart = $this->db->set('status_pembayaran', $status_pembayaran)
@@ -125,6 +134,22 @@ class M_chekout extends CI_Model
         $this->db->order_by('id_cart', 'desc');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    function m_hapus_data_pesanan($kode_pesanan)
+    {
+        $delete_favorit = $this->db
+            ->where('kode_chekout', $kode_pesanan)
+            ->delete('favorit');
+        $delete_cart = $this->db
+            ->where('kode_cart', $kode_pesanan)
+            ->delete('cart');
+        $delete_bukti = $this->db
+            ->where('kode_pesanan', $kode_pesanan)
+            ->delete('bukti_transfer');
+        return $delete_cart;
+        return $delete_favorit;
+        return $delete_bukti;
     }
 }
 // Query insert tempatkan disini,... 

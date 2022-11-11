@@ -28,6 +28,20 @@ class M_cart extends CI_Model
         $this->db->order_by('id_cart', 'desc');
         return $query->result();
     }
+    function m_data_cart_ditolak()
+    {
+        $data_user = $this->session->userdata("id_user");
+
+        $this->db->select('*');
+        $this->db->from('cart');
+        $this->db->where('cart_user', $data_user);
+        $this->db->where('status_pembayaran', 'Di-tolak');
+        $this->db->join('bukti_transfer', 'bukti_transfer.kode_pesanan = cart.kode_cart');
+        $this->db->join('user', 'user.id_user = cart.cart_user');
+        $query = $this->db->get();
+        $this->db->order_by('id_cart', 'desc');
+        return $query->result();
+    }
     function m_data_cart_brgkms()
     {
         $data_user = $this->session->userdata("id_user");

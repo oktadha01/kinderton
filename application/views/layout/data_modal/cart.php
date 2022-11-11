@@ -136,6 +136,17 @@
         font-size: x-small;
     }
 
+    .notif-ditolak {
+        border: 1px solid #00000014;
+        max-inline-size: fit-content;
+        padding: 4px;
+        border-radius: 12px;
+        font-family: system-ui;
+        background: #fc010170;
+        color: #1f2d3dad;
+        font-size: x-small;
+    }
+
     .max-height-7rem {
         max-height: 7rem;
     }
@@ -199,6 +210,16 @@
                                             <i class="fa-solid fa-clock-rotate-left logistic font-5"></i>
                                             <p class="text-dark">
                                                 Riwayat
+                                            </p>
+                                        </a>
+                                    </center>
+                                </td>
+                                <td scope="col" class="text-center border-0 p-3">
+                                    <center>
+                                        <a class="showSingle" target="6">
+                                            <i class="fa-regular fa-circle-xmark logistic font-6"></i><span id="" class="badge badge-danger bedge-logistic notifditolak notif_ditolak"></span>
+                                            <p class="text-dark">
+                                                Di tolak
                                             </p>
                                         </a>
                                     </center>
@@ -1211,16 +1232,214 @@
                 ?>
             </div>
         </div>
+        <div id="div6" class="targetDiv">
+            <h6 class="notif-ditolak notifditolak"><span class="notif_ditolak"></span> Pesanan Di Tolak</h6>
+            <div class="accordion" id="accordion-ditolak">
+                <?php
+                foreach ($cart_ditolak as $data) :
+                ?>
+                    <div class="card mb-2 b-radius">
+                        <div class="card-header cart collapsed pl-1 pr-1 p" data-toggle="collapse" data-target="#coll<?php echo $data->id_cart; ?>" aria-expanded="false">
+                            <span class="accicon"><i class="fas fa-angle-down border-arrow rotate-icon"></i></span>
+                            <div class="row title-cart">
+                                <div class="col pl-1">
+                                    <span class="float-right text-danger font-size-xs"><?php echo $data->status_pembayaran; ?></span>
+                                    <?php
+                                    $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                    $query = $this->db->query($sql);
+                                    if ($query->num_rows() > 0) {
+                                        foreach ($query->result() as $nmproduk) {
+
+                                    ?>
+                                            <div class="mb-1">
+                                                <img src="<?php echo base_url('upload'); ?>/<?php echo $nmproduk->fotpro; ?>" class="size-img" alt="Image">
+                                                <span class="title"><?php echo $nmproduk->nm_jp; ?> || <?php echo $nmproduk->kategori; ?> || <?php echo $nmproduk->gender; ?></span>
+                                                <br class="mb-1">
+                                            </div>
+                                            <!-- <hr class="hr-cart"> -->
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                            <div id="coll<?php echo $data->id_cart; ?>" class="collapse " data-parent="#accordion-dikirim">
+                                <div class="row">
+                                    <?php
+                                    $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
+                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                    $query = $this->db->query($sql);
+                                    if ($query->num_rows() > 0) {
+                                        foreach ($query->result() as $produk_cart) {
+
+                                    ?>
+
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 pb-1">
+                                                <div class="thumb_cart">
+                                                    <img src="<?php echo base_url('upload'); ?>/<?php echo $produk_cart->fotpro; ?>" class="lazy" alt="Image">
+                                                </div>
+                                                <span class=""><?php echo $produk_cart->nm_jp; ?> || <?php echo $produk_cart->kategori; ?> || <?php echo $produk_cart->gender; ?></span>
+                                                <br>
+                                                <span class=""><?php echo $produk_cart->texture; ?> || <?php echo $produk_cart->size; ?> || <?php echo $produk_cart->qty; ?>X</span>
+                                                <br>
+                                                <?php
+                                                if ($produk_cart->status_produk == 'PROMO') {
+                                                ?>
+                                                    <span class="text-danger">Rp. <?php echo $produk_cart->hrg_diskon; ?></span>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <span class="text-danger">Rp. <?php echo $produk_cart->hrg_awal; ?></span>
+
+                                                <?php
+                                                }
+                                                ?>
+                                                <hr class="hr-cart">
+                                            </div>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                                <div class="container">
+
+                                    <div class="row pr-3">
+                                        <div class="col-lg-4">
+                                            <h6>Pesanan</h6>
+                                            <ul class="">
+                                                <li>
+                                                    <span class="text-bold">Nama</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->nm_user; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Kota Tujuan</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->kota; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Alamat</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->alamat; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Total Produk</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->total_produk; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Total Barang</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->total_barang; ?></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h6>Jasa Kurir</h6>
+                                            <ul>
+                                                <li>
+                                                    <span class="text-bold">Kurir</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->kurir; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Layanan</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->pelayanan; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">ETD</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->etd; ?> D</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Berat (Kg)</span>
+                                                    <span class="font-family-cursive">: <?php echo $data->berat; ?> Kg</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Ongkir</span>
+                                                    <span class="font-family-cursive">: Rp.<?php echo $data->ongkir; ?></span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-bold">Subtotal</span>
+                                                    <span class="font-family-cursive">: Rp.<?php echo $data->subtotal; ?></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h6>Mode Pembayaran</h6>
+                                            <ul>
+                                                <li>
+                                                    <span><?php echo $data->mode_pembayaran; ?></span>
+                                                </li>
+                                            </ul>
+                                            <h6>Bukti Transfer</h6>
+                                            <div class="border-detail-pesanan p-1">
+                                                <div class="thumb_cart">
+                                                    <a target="_blank" href="<?php echo base_url('upload/bukti_transfer'); ?>/<?php echo $data->foto_bukti; ?>">
+                                                        <img src="<?php echo base_url('upload/bukti_transfer'); ?>/<?php echo $data->foto_bukti; ?>" class="lazy" alt="Image">
+                                                    </a>
+                                                </div>
+                                                <ul class="pl-6rem">
+                                                    <li>
+                                                        <span class="text-bold">A.N</span>
+                                                        <span class="font-family-cursive">: <?php echo $data->an_pengirim; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="text-bold">Transaksi Bank</span>
+                                                        <span class="font-family-cursive">: <?php echo $data->bank; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="text-bold">Nominal</span>
+                                                        <span class="font-family-cursive">: Rp.<?php echo $data->nominal; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="text-bold">Tgl Bayar</span>
+                                                        <span class="font-family-cursive">: <?php echo $data->tgl_byr; ?></span>
+                                                    </li>
+                                                    <span class="text-danger"><?php echo $data->status_pembayaran; ?></span>
+                                                </ul>
+                                                <hr class="hr-cart ml-2 mr-2">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h6>Keterangan ditolak</h6>
+                                                        <ul class="pl-4">
+                                                            <li>
+                                                                <span><?php echo $data->ket_ditolak; ?></span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row pr-3 mt-2">
+                                        <div class="col">
+                                            <span class="text-bold float-right">Total Pembayaran <span class="text-danger">Rp.<?php echo $data->total_pembayaran; ?></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container pr-2rem">
+                                <hr class="hr-cart">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class=""><span>Pesana mu ditolak</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                endforeach
+                ?>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function() {
+        tdk_ada_pesanan();
 
         $('.notif_blm_byr').load('<?php echo site_url('cart/notif_blm_byr'); ?>');
         $('.notif_sdh_byr').load('<?php echo site_url('cart/notif_sdh_byr'); ?>');
         $('.notif_brg_kms').load('<?php echo site_url('cart/notif_brg_kms'); ?>');
         $('.notif_dikirim').load('<?php echo site_url('cart/notif_dikirim'); ?>');
+        $('.notif_ditolak').load('<?php echo site_url('cart/notif_ditolak'); ?>');
         $('.detail-cart').hide();
         $('#pembayaran-addtocart').hide();
         $('#konfrimasi-pembayaran').hide();
@@ -1324,7 +1543,8 @@
             }
         });
 
-
+        const input = document.querySelector("#bukti-transfer");
+        input.setAttribute("type", "password");
         $('#bank-pengirim').select2();
         $('.loader-bayar-pesanan').hide();
         const Toast = Swal.mixin({
@@ -1332,6 +1552,17 @@
             position: 'top-end',
             showConfirmButton: false,
             timer: 3000
+        });
+        $(".pilih-bukti-transfer").on('click', function() {
+            if ($('#nominal').val() == '') {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Nominal pengirim tidak boleh kosong'
+                })
+            } else {
+                const input = document.querySelector("#bukti-transfer");
+                input.setAttribute("type", "file");
+            }
         });
         $("#btn-kirim-bukti").click(function(e) {
             // alert('ya');
@@ -1389,8 +1620,7 @@
                         $('.select2-selection,.pilih-bukti-transfer').removeClass('btn-disabled').removeAttr('disabled', true);
                         $('#an-pengirim,#nominal,#bank-pengirim,#nm-bukti-transfer').removeClass('input_disabled').removeAttr('disabled', true);
                         var state = document.readyState
-                        if (state == 'interactive') {
-                        } else if (state == 'complete') {
+                        if (state == 'interactive') {} else if (state == 'complete') {
                             setTimeout(function() {
                                 document.getElementById('interactive');
                                 $("body").each(function() {
@@ -1400,10 +1630,10 @@
                                     var $minWidth = 900;
                                     //you need the height of the div you are currently iterating on: use this
                                     if ($(this).width() < $minWidth) {
-                                        var linkWA = 'https://api.whatsapp.com/send?phone='+nohp+'&text='+pesan;
+                                        var linkWA = 'https://api.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
                                         window.location = linkWA;
                                     } else {
-                                        var linkWA = 'https://web.whatsapp.com/send?phone='+nohp+'&text='+pesan;
+                                        var linkWA = 'https://web.whatsapp.com/send?phone=' + nohp + '&text=' + pesan;
                                         window.location = linkWA;
                                     }
                                 });
@@ -1434,22 +1664,6 @@
             });
         });
 
-        tdk_ada_pesanan();
-
-        function tdk_ada_pesanan() {
-            $("#data-cart").each(function() {
-                var $minHeight = 100;
-                //you need the height of the div you are currently iterating on: use this
-                if ($(this).height() < $minHeight) {
-                    $('.tdk-ada-pesanan').hide();
-                    // $('.tdk-ada-pesanan').show(200);
-                    // alert('ya');
-                } else {
-                    $('.tdk-ada-pesanan').hide();
-                }
-            });
-        }
-
         function btn_enable_kirim() {
             if ($('#an-pengirim').val() == '') {
                 alert('ya');
@@ -1471,4 +1685,18 @@
         };
 
     });
+
+    function tdk_ada_pesanan() {
+
+        $("#data-cart").each(function() {
+            var $minHeight = 100;
+            //you need the height of the div you are currently iterating on: use this
+            if ($(this).height() < $minHeight) {
+                $('.tdk-ada-pesanan').hide();
+                $('.tdk-ada-pesanan').show(200);
+            } else {
+                $('.tdk-ada-pesanan').hide();
+            }
+        });
+    }
 </script>

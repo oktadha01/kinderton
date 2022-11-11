@@ -97,8 +97,16 @@ class Chekout extends CI_Controller
         $jam_kirim = $this->input->post('jam-kirim');
         $etd_kirim = $this->input->post('etd-kirim');
         $no_resi = $this->input->post('no-resi');
+        $ket_tolak = $this->input->post('ket-tolak');
         $status_pembayaran = $this->input->post('status-pembayaran');
-        $this->m_chekout->m_acc_pesanan($kode_cart, $status_pembayaran, $jam_kirim, $etd_kirim, $no_resi);
+        $this->m_chekout->m_acc_pesanan($kode_cart, $status_pembayaran, $jam_kirim, $etd_kirim, $no_resi, $ket_tolak);
+    }
+    function hapus_data_pesanan()
+    {
+        $kode_pesanan = $this->input->post('kode-pesanan');
+        $foto_bukti = $this->input->post('foto-bukti');
+		unlink('./upload/bukti_transfer/' . $foto_bukti);
+        $this->m_chekout->m_hapus_data_pesanan($kode_pesanan);
     }
 
     function notif_vali_pesanan()
@@ -135,7 +143,7 @@ class Chekout extends CI_Controller
                 // $('.notif-pesanan').removeAttr('hidden', true);
             }
         </script>
-    <?php
+<?php
     }
     function pesanan_dikirim()
     {
@@ -160,6 +168,6 @@ class Chekout extends CI_Controller
     function jumlah_brg_terjual()
     {
         // $data_user = $this->session->userdata("id_user");
-       
+
     }
 }

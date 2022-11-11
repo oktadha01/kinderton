@@ -141,7 +141,8 @@
                 <script>
                     $('#modal-panel').addClass('show');
                     $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
-                    $('.targetDiv').hide();
+                    $('.targetDiv').attr('hidden', true);
+                    $('.detail-cart').attr('hidden', true);
                 </script>
             <?php
             } else {
@@ -168,7 +169,7 @@
         $('.dropdown-close-user').click(function(e) {
             // alert('ya');
             $('#dropdown-user').removeClass('show');
-        })
+        });
         $('.top-panel-close').click(function(e) {
             // alert('ya');
             $('#page').removeClass('top-panel-close');
@@ -429,6 +430,7 @@
     <script>
         $('#notif-favorit').load('<?php echo site_url('Favorit/notif_favorit'); ?>');
         $('.notif-cart').load('<?php echo site_url('cart/notif_cart'); ?>');
+        $('.notif-pesanan').load('<?php echo site_url('chekout/notif_vali_pesanan'); ?>');
 
         $('.btn-favorit-produk').click(function() {
             $('.navbar-bottom').addClass("opened");

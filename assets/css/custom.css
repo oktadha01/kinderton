@@ -286,6 +286,23 @@ html {
 	}
 }
 
+.navbar-badge-db {
+	top: 3px;
+	position: absolute;
+	right: 105px;
+}
+
+@media (max-width: 1080px) {
+	.navbar-badge-db {
+		font-size: .6rem;
+		font-weight: 300;
+		padding: 2px 4px;
+		position: absolute;
+		right: -5px !important;
+		top: -7px !important;
+	}
+}
+
 .navbar-badge-favorit {
 	position: absolute;
 	right: 39px;
