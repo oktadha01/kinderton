@@ -4,10 +4,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Olah_data extends CI_Controller
 {
+	public $load;
+	public $m_olah_data;
+	public $input;
+	public $upload;
+	public $image_lib;
+	public $session;
+
+
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_olah_data');
+		$this->load->model('m_olah_data');
 	}
 
 	public function index()
@@ -18,7 +26,7 @@ class Olah_data extends CI_Controller
 			// $data['_submenu'] = 'dashboard'; //for submenu
 			$data['_script'] = 'olah_data/olah_data_js';
 			$data['_view'] = 'olah_data/olah_data';
-			$data['jenis_produk'] = $this->M_olah_data->m_list_jenis_produk();
+			$data['jenis_produk'] = $this->m_olah_data->m_list_jenis_produk();
 			$this->load->view('layout/index', $data);
 		} else {
 			redirect(base_url(''));
@@ -29,7 +37,7 @@ class Olah_data extends CI_Controller
 	{
 		$data['_script'] = 'olah_data/olah_data_js';
 		$data['_view'] = 'olah_data/jenis_produk';
-		$data['jenis_produk'] = $this->M_olah_data->m_list_jenis_produk();
+		$data['jenis_produk'] = $this->m_olah_data->m_list_jenis_produk();
 		$this->load->view('olah_data/jenis_produk', $data);
 		// $this->load->view('layout/index', $data);
 	}
@@ -38,8 +46,8 @@ class Olah_data extends CI_Controller
 	{
 		$data['_script'] = 'olah_data/olah_data_js';
 		$data['_view'] = 'olah_data/foto_produk';
-		$data['jenis_produk'] = $this->M_olah_data->m_list_jenis_produk();
-		$data['foto_produk'] = $this->M_olah_data->m_list_foto_produk();
+		$data['jenis_produk'] = $this->m_olah_data->m_list_jenis_produk();
+		$data['foto_produk'] = $this->m_olah_data->m_list_foto_produk();
 		$this->load->view('olah_data/foto_produk', $data);
 	}
 
@@ -47,7 +55,7 @@ class Olah_data extends CI_Controller
 	{
 		$select_produk = $this->input->post('select-nm-produk');
 		// $select_produk = '155';
-		$data = $this->M_olah_data->m_select_foto_produk($select_produk);
+		$data = $this->m_olah_data->m_select_foto_produk($select_produk);
 		echo json_encode($data);
 		// echo $select_produk;
 	}
@@ -57,8 +65,8 @@ class Olah_data extends CI_Controller
 		// $select_produk = '155';
 		$data['_script'] = 'olah_data/olah_data_js';
 		$data['_view'] = 'olah_data/foto_produk';
-		$data['jenis_produk'] = $this->M_olah_data->m_list_jenis_produk();
-		$data['foto_produk'] = $this->M_olah_data->m_select_foto_produk();
+		$data['jenis_produk'] = $this->m_olah_data->m_list_jenis_produk();
+		$data['foto_produk'] = $this->m_olah_data->m_select_foto_produk();
 		$this->load->view('olah_data/foto_produk', $data);
 	}
 
@@ -71,7 +79,7 @@ class Olah_data extends CI_Controller
 	{
 		$data['_script'] = 'olah_data/olah_data_js';
 		$data['_view'] = 'olah_data/harga_produk';
-		$data['harga_produk'] = $this->M_olah_data->m_list_harga_produk();
+		$data['harga_produk'] = $this->m_olah_data->m_list_harga_produk();
 		$this->load->view('olah_data/harga_produk', $data);
 	}
 
@@ -85,7 +93,7 @@ class Olah_data extends CI_Controller
 			'desk' => $this->input->post('desk'),
 		);
 
-		$data = $this->M_olah_data->m_simpan_jenis_produk($data);
+		$data = $this->m_olah_data->m_simpan_jenis_produk($data);
 		echo json_encode($data);
 	}
 
@@ -96,7 +104,7 @@ class Olah_data extends CI_Controller
 		$kategori = $this->input->post('kategori');
 		$gender = $this->input->post('gender');
 		$desk = $this->input->post('desk');
-		$data = $this->M_olah_data->m_edit_jenis_produk($id_jp, $nm_jp, $kategori, $gender, $desk);
+		$data = $this->m_olah_data->m_edit_jenis_produk($id_jp, $nm_jp, $kategori, $gender, $desk);
 		echo json_encode($data);
 		echo 'berhasil';
 	}
@@ -104,7 +112,7 @@ class Olah_data extends CI_Controller
 	function hapus_jenis_produk()
 	{
 		$id_jp = $this->input->post('id-jp');
-		$data = $this->M_olah_data->m_hapus_jenis_produk($id_jp);
+		$data = $this->m_olah_data->m_hapus_jenis_produk($id_jp);
 		echo json_encode($data);
 	}
 
@@ -125,7 +133,7 @@ class Olah_data extends CI_Controller
 			'extra2_large' => $this->input->post('extra2-large'),
 		);
 
-		$data = $this->M_olah_data->m_simpan_harga_produk($data, $id_hrg_produk, $status_produk);
+		$data = $this->m_olah_data->m_simpan_harga_produk($data, $id_hrg_produk, $status_produk);
 		echo json_encode($data);
 	}
 
@@ -145,14 +153,14 @@ class Olah_data extends CI_Controller
 		$status_produk = $this->input->post('status-produk');
 		$tgl_akhir_promo = $this->input->post('tgl-akhir-promo');
 		$jam_akhir_promo = $this->input->post('jam-akhir-promo');
-		$data = $this->M_olah_data->m_edit_harga_produk($id_hrg, $id_hrg_produk, $hrg_awal, $diskon, $hrg_diskon, $all_size, $small, $medium, $large, $extra_large, $extra2_large, $tgl_akhir_promo, $status_produk, $jam_akhir_promo);
+		$data = $this->m_olah_data->m_edit_harga_produk($id_hrg, $id_hrg_produk, $hrg_awal, $diskon, $hrg_diskon, $all_size, $small, $medium, $large, $extra_large, $extra2_large, $tgl_akhir_promo, $status_produk, $jam_akhir_promo);
 		echo json_encode($data);
 		echo 'berhasil';
 	}
 	function hapus_hrg_produk()
 	{
 		$id_hrg = $this->input->post('id-hrg');
-		$data = $this->M_olah_data->m_hapus_hrg_produk($id_hrg);
+		$data = $this->m_olah_data->m_hapus_hrg_produk($id_hrg);
 		echo json_encode($data);
 	}
 	function simpan_foto_produk()
@@ -171,10 +179,16 @@ class Olah_data extends CI_Controller
 			$texture = $this->input->post('texture');
 			$status_foto = $this->input->post('status-foto');
 			$uploadedImage = $this->upload->data();
+			if ($status_foto == 'slide') {
 
-			$this->resizeImage($uploadedImage['file_name']);
-			$insert = $this->M_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
-			echo json_encode($insert);
+				$this->resizeImage_landcape($uploadedImage['file_name']);
+				$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
+				echo json_encode($insert);
+			} else {
+				$this->resizeImage_potrait($uploadedImage['file_name']);
+				$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
+				echo json_encode($insert);
+			}
 		}
 		exit;
 	}
@@ -199,9 +213,16 @@ class Olah_data extends CI_Controller
 			$status_foto = $this->input->post('status-foto');
 			$uploadedImage = $this->upload->data();
 
-			$this->resizeImage($uploadedImage['file_name']);
-			$update = $this->M_olah_data->m_edit_foto_produk($id_fotpro, $id_fotjp, $fot_produk, $texture, $status_foto, $fotlama);
-			echo json_decode($update);
+			if ($status_foto == 'slide') {
+
+				$this->resizeImage_landcape($uploadedImage['file_name']);
+				$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
+				echo json_encode($insert);
+			} else {
+				$this->resizeImage_potrait($uploadedImage['file_name']);
+				$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
+				echo json_encode($insert);
+			}
 		}
 		exit;
 	}
@@ -213,7 +234,7 @@ class Olah_data extends CI_Controller
 		$id_fotjp = $this->input->post('id-fotjp');
 		$texture = $this->input->post('texture');
 		$status_foto = $this->input->post('status-foto');
-		$result = $this->M_olah_data->m_edit_fotoproduk($id_fotpro, $id_fotjp, $texture, $status_foto);
+		$result = $this->m_olah_data->m_edit_fotoproduk($id_fotpro, $id_fotjp, $texture, $status_foto);
 		echo json_decode($result);
 	}
 	function hapus_foto_produk()
@@ -221,16 +242,16 @@ class Olah_data extends CI_Controller
 		$fotlama = $this->input->post('fotlama');
 		unlink('./upload/' . $fotlama);
 		$id_fotpro = $this->input->post('id-fotpro');
-		$data = $this->M_olah_data->m_hapus_foto_produk($id_fotpro);
+		$data = $this->m_olah_data->m_hapus_foto_produk($id_fotpro);
 		echo json_encode($data);
 	}
 	function expired_promo()
 	{
 		$id_jp = $this->input->post('id-jp');
-		$result = $this->M_olah_data->m_expired_promo($id_jp);
+		$result = $this->m_olah_data->m_expired_promo($id_jp);
 		echo json_decode($result);
 	}
-	public function resizeImage($filename)
+	public function resizeImage_potrait($filename)
 	{
 		$source_path = 'upload/' . $filename;
 		$target_path = 'upload/';
@@ -240,8 +261,31 @@ class Olah_data extends CI_Controller
 			'new_image' => $target_path,
 			'maintain_ratio' => TRUE,
 			'quality' => '60%',
-			'width' => '2560',
-			'height' => 'auto',
+			'width' => '1667',
+			'height' => '2500',
+		];
+		$this->load->library('image_lib', $config);
+		if (!$this->image_lib->resize()) {
+			return [
+				'status' => 'error compress',
+				'message' => $this->image_lib->display_errors()
+			];
+		}
+		$this->image_lib->clear();
+		return 1;
+	}
+	public function resizeImage_landcape($filename)
+	{
+		$source_path = 'upload/' . $filename;
+		$target_path = 'upload/';
+		$config = [
+			'image_library' => 'gd2',
+			'source_image' => $source_path,
+			'new_image' => $target_path,
+			'maintain_ratio' => TRUE,
+			'quality' => '60%',
+			'width' => '1667',
+			'height' => '2500',
 		];
 		$this->load->library('image_lib', $config);
 		if (!$this->image_lib->resize()) {

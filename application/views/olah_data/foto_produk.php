@@ -68,6 +68,11 @@
         td:nth-of-type(4):before {
             padding-top: 12px;
             font-weight: bolder;
+            content: "LAYOUT";
+        }
+        td:nth-of-type(5):before {
+            padding-top: 12px;
+            font-weight: bolder;
             content: "ACTION";
         }
 
@@ -109,6 +114,7 @@
                         <th scope="col" role="columnheader">PRODUK</th>
                         <th scope="col" role="columnheader">FOTO</th>
                         <th scope="col" role="columnheader">TEXTURE</th>
+                        <th scope="col" role="columnheader">LAYOUT</th>
                         <th scope="col" role="columnheader">ACTION</th>
                     </tr>
                 </thead>
@@ -121,6 +127,7 @@
                             <td role="cell" scope="col"><img src="<?php echo base_url('upload'); ?>/<?php echo $data_fp->fotpro; ?>" id="" class="img-thumbnail max-height-5rem">
                             </td>
                             <td role="cell" scope="col"><?php echo $data_fp->texture; ?></td>
+                            <td role="cell" scope="col"><?php echo $data_fp->status_foto; ?></td>
                             <td role="cell" scope="col">
                                 <a href="#page">
                                     <button type="button" class="btn btn-xs bg-gradient-info elevation-3 btn-edit-foto-produk" id="" data-id-fotpro="<?php echo $data_fp->id_fotpro; ?>" data-id-fotjp="<?php echo $data_fp->id_fotjp; ?>" data-fotpro="<?php echo $data_fp->fotpro; ?>" data-texture="<?php echo $data_fp->texture; ?>" data-status-foto="<?php echo $data_fp->status_foto; ?>">
@@ -154,7 +161,6 @@
                 $('.tr-foto-produk').hide();
                 $('.tr-foto-' + id).show();
             }
-
         });
         $('.btn-edit-foto-produk').click(function(e) {
             $('#form-foto-produk').removeAttr('hidden', true);
@@ -213,6 +219,7 @@
             });
             $('#ceklis-ubah-foto').attr('hidden', true);
 
+            // alert('yaa')
         });
         $('#btn-batal-foto-produk').click(function(e) {
             $('#form-foto-produk').attr('hidden', true);

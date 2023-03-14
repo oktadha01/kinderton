@@ -237,29 +237,32 @@
         copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.value);
     }
+
     var tgl_promo = $('.tgl-akhir-promo').text();
     var jam_promo = $('.jam-akhir-promo').text();
-    var x = setInterval(function() {
-        var countDownDate = new Date(tgl_promo + ' ' + jam_promo);
+    if ($('.status-produk').text() == 'PROMO') {
+        var x = setInterval(function() {
+            var countDownDate = new Date(tgl_promo + ' ' + jam_promo);
 
-        // Dapatkan tanggal dan waktu hari ini
-        var now = new Date().getTime();
-        // Temukan jarak antara sekarang dan tanggal hitung mundur
-        var distance = countDownDate - now;
+            // Dapatkan tanggal dan waktu hari ini
+            var now = new Date().getTime();
+            // Temukan jarak antara sekarang dan tanggal hitung mundur
+            var distance = countDownDate - now;
 
-        // Perhitungan waktu untuk hari, jam, menit dan detik
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Perhitungan waktu untuk hari, jam, menit dan detik
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Keluarkan hasil dalam elemen dengan id = "demo"
-        document.getElementById("countdown-detail").innerHTML = days + "D " + hours + ":" +
-            minutes + ":" + seconds + "";
-        //Jika hitungan mundur selesai, tulis beberapa teks
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown-detail").innerHTML = "EXPIRED";
-        }
-    }, 1000);
+            // Keluarkan hasil dalam elemen dengan id = "demo"
+            document.getElementById("countdown-detail").innerHTML = days + "D " + hours + ":" +
+                minutes + ":" + seconds + "";
+            //Jika hitungan mundur selesai, tulis beberapa teks
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown-detail").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    }
 </script>

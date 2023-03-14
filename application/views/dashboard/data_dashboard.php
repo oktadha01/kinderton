@@ -1,24 +1,22 @@
 <div class="row small-gutters">
 
     <?php
-    $sql = "SELECT * FROM jenis_produk";
-    $query = $this->db->query($sql);
-    if ($query->num_rows() > 0) {
-        foreach ($query->result() as $row) {
-            $id_jp = $row->id_jp;
-            $nm_jp = $row->nm_jp;
-            $nm_produk = preg_replace("![^a-z0-9]+!i", "-", $nm_jp);
-            $sql = "SELECT * FROM favorit WHERE produk= $id_jp AND status_favorit = 'terbeli'";
-            $jumlah = $this->db->query($sql);
+    foreach ($data_produk as $row) {
+        $id_jp = $row->id_jp;
+        $nm_jp = $row->nm_jp;
+        $nm_produk = preg_replace("![^a-z0-9]+!i", "-", $nm_jp);
+        $sql = "SELECT * FROM favorit WHERE produk= $id_jp AND status_favorit = 'terbeli'";
+        $jumlah = $this->db->query($sql);
     ?>
-            <div class="col-6 col-md-4 col-xl-3">
-                <div class="grid_item bg-white mb-1">
-                    <?php
-                    $sql = "SELECT * FROM harga_produk WHERE id_hrg_produk = $id_jp  ORDER BY hrg_awal DESC limit 1";
-                    $query = $this->db->query($sql);
-                    if ($query->num_rows() > 0) {
-                        foreach ($query->result() as $harga) {
-                    ?>
+        <div class="col-6 col-md-4 col-xl-3">
+            <div class="grid_item bg-white mb-1">
+                <?php
+                $hrg = 0;
+                foreach ($data_hrg_produk as $harga) {
+                    if ($harga->id_hrg_produk == $id_jp) {
+                        $hrg++;
+                        if ($hrg == 1) {
+                ?>
                             <figure class="mb-1">
                                 <?php
                                 if ($row->status_produk == 'HOT') { ?>
@@ -96,7 +94,7 @@
                                             if (distance < 0) {
                                                 clearInterval(x);
                                                 document.getElementById("countdown<?php echo $id_jp; ?>").innerHTML = "EXPIRED";
-                                                if ($('#countdown<?php echo $id_jp; ?>').text() == 'EXPIRED') {
+                                                if ($('#countdown<?php echo $id_jp; ?>').text() == 'EXPIRED' || $('#countdown<?php echo $id_jp; ?>').text() == 'NAND') {
                                                     // alert('ya')
                                                     var id_jp = '<?php echo $id_jp; ?>';
                                                     let formData = new FormData();
@@ -127,30 +125,30 @@
                                 }
                                 ?>
                             </div>
-                    <?php
+                <?php
                         }
                     }
-                    ?>
+                }
+                ?>
 
-                    <ul>
-                        <?php if (!$this->session->userdata('is_login')) : ?>
-                            <li><a href="#" class="tooltip-1" data-toggle="modal" data-target="#modal-login" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                <ul>
+                    <?php if (!$this->session->userdata('is_login')) : ?>
+                        <li><a href="#" class="tooltip-1" data-toggle="modal" data-target="#modal-login" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                        <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                    <?php else : ?>
+                        <?php if ($this->session->userdata('status_user') == '1') { ?>
+                            <li><a href="#" class="tooltip-1 btn-favorit-produk" data-id-produk="<?php echo $row->id_jp; ?>" data-foto-produk="<?php echo $foto->fotpro; ?>" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
                             <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                        <?php else : ?>
-                            <?php if ($this->session->userdata('status_user') == '1') { ?>
-                                <li><a href="#" class="tooltip-1 btn-favorit-produk" data-id-produk="<?php echo $row->id_jp; ?>" data-foto-produk="<?php echo $foto->fotpro; ?>" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
-                                <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                            <?php } else { ?>
-                                <li><a href="#" class="tooltip-1 btn-favorit-produk-konfemail" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
-                                <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                            <?php } ?>
-                        <?php endif ?>
-                    </ul>
-                </div>
-                <!-- /grid_item -->
+                        <?php } else { ?>
+                            <li><a href="#" class="tooltip-1 btn-favorit-produk-konfemail" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                            <li><a href="<?php echo base_url(); ?>detail_produk/data/<?php echo $row->id_jp; ?>/<?php echo $nm_produk; ?>" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                        <?php } ?>
+                    <?php endif ?>
+                </ul>
             </div>
+            <!-- /grid_item -->
+        </div>
     <?php
-        }
     }
     ?>
 </div>

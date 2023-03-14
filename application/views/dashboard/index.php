@@ -26,7 +26,6 @@
                         </div>
                     </div>
                     <!--/owl-slide-->
-
             <?php
                 }
             }
@@ -35,69 +34,73 @@
         <div id="icon_drag_mobile"></div>
     </div>
     <!--/carousel-->
-<?php 
-$get_data = $this->uri->segment(2);
-echo $get_data
-?>
+    <?php
+    $get_data = $this->uri->segment(2);
+    echo $get_data
+    ?>
     <ul id="banners_grid" class="clearfix">
-        <li>
+        <?php
+        $longue = 0;
+        $formal = 0;
+        $modest = 0;
+        foreach ($data_ketegori as $data) {
+        ?>
             <?php
-            $sql = "SELECT * FROM jenis_produk, foto_produk WHERE foto_produk.id_fotjp = jenis_produk.id_jp AND jenis_produk.kategori='Longue-Wear' AND foto_produk.status_foto = 'display' ORDER BY RAND() LIMIT 1";
-            $query = $this->db->query($sql);
-            if ($query->num_rows() > 0) {
-                foreach ($query->result() as $slide) {
+            if ($data->kategori == 'Longue-Wear') {
+                $longue++;
+                if ($longue == 1) {
             ?>
-                    <a href="<?php echo base_url(); ?>produk/category/<?php echo $slide->kategori; ?>" class="img_container">
-                        <img src="<?php echo base_url('upload'); ?>/<?php echo $slide->fotpro; ?>" data-src="<?php echo base_url('upload'); ?>/<?php echo $slide->fotpro; ?>" alt="" class="lazy">
-                        <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-                            <h3>Longue Wear</h3>
-                            <div><span class="btn_1">Shop Now</span></div>
-                        </div>
-                    </a>
-            <?php
+                    <li>
+                        <a href="<?php echo base_url(); ?>produk/category/<?php echo $data->kategori; ?>" class="img_container">
+                            <img src="<?php echo base_url('upload'); ?>/<?php echo $data->fotpro; ?>" data-src="<?php echo base_url('upload'); ?>/<?php echo $data->fotpro; ?>" alt="" class="lazy">
+                            <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                                <h3><?php echo $data->kategori; ?></h3>
+                                <div><span class="btn_1">Shop Now</span></div>
+                            </div>
+                        </a>
+                    </li>
+                <?php
                 }
+            } else if ($data->kategori == 'Formal-Wear') {
+                $formal++;
+                if ($formal == 1) {
+                ?>
+                    <li>
+                        <a href="<?php echo base_url(); ?>produk/category/<?php echo $data->kategori; ?>" class="img_container">
+                            <img src="<?php echo base_url('upload'); ?>/<?php echo $data->fotpro; ?>" data-src="<?php echo base_url('upload'); ?>/<?php echo $data->fotpro; ?>" alt="" class="lazy">
+                            <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                                <h3><?php echo $data->kategori; ?></h3>
+                                <div><span class="btn_1">Shop Now</span></div>
+                            </div>
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
+                <?php
+            } else if ($data->kategori == 'Modest-Wear') {
+                $modest++;
+                if ($modest == 1) {
+                ?>
+                    <li>
+                        <a href="<?php echo base_url(); ?>produk/category/<?php echo $data->kategori; ?>" class="img_container">
+                            <img src="<?php echo base_url('upload'); ?>/<?php echo $data->fotpro; ?>" data-src="<?php echo base_url('upload'); ?>/<?php echo $data->fotpro; ?>" alt="" class="lazy">
+                            <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                                <h3><?php echo $data->kategori; ?></h3>
+                                <div><span class="btn_1">Shop Now</span></div>
+                            </div>
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
+            <?php
             }
             ?>
-        </li>
-        <li>
-            <?php
-            $sql = "SELECT * FROM jenis_produk, foto_produk WHERE foto_produk.id_fotjp = jenis_produk.id_jp AND jenis_produk.kategori='Formal-Wear' AND foto_produk.status_foto = 'display' ORDER BY RAND() LIMIT 1";
-            $query = $this->db->query($sql);
-            if ($query->num_rows() > 0) {
-                foreach ($query->result() as $slide) {
-            ?>
-                    <a href="<?php echo base_url(); ?>produk/category/<?php echo $slide->kategori; ?>" class="img_container">
-                        <img src="<?php echo base_url('upload'); ?>/<?php echo $slide->fotpro; ?>" data-src="<?php echo base_url('upload'); ?>/<?php echo $slide->fotpro; ?>" alt="" class="lazy">
-                        <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-                            <h3>Formal Wearr</h3>
-                            <div><span class="btn_1">Shop Now</span></div>
-                        </div>
-                    </a>
-            <?php
-                }
-            }
-            ?>
-        </li>
-        <li>
-            <?php
-            $sql = "SELECT * FROM jenis_produk, foto_produk WHERE foto_produk.id_fotjp = jenis_produk.id_jp AND jenis_produk.kategori='Modest-Wear' AND foto_produk.status_foto = 'display' ORDER BY RAND() LIMIT 1";
-            $query = $this->db->query($sql);
-            if ($query->num_rows() > 0) {
-                foreach ($query->result() as $slide) {
-            ?>
-                    <a href="<?php echo base_url(); ?>produk/category/<?php echo $slide->kategori; ?>" class="img_container">
-                        <img src="<?php echo base_url('upload'); ?>/<?php echo $slide->fotpro; ?>" data-src="<?php echo base_url('upload'); ?>/<?php echo $slide->fotpro; ?>" alt="" class="lazy">
-                        <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-                            <h3>Modest Wear</h3>
-                            <div><span class="btn_1">Shop Now</span></div>
-                        </div>
-                    </a>
-            <?php
-                }
-            }
-            ?>
-        </li>
-        
+        <?php
+        }
+        ?>
+
     </ul>
     <!--/banners_grid -->
     <div class="container margin_60_35 bg-dashboard pt-3 pb-3">

@@ -11,6 +11,7 @@
                 foreach ($query->result() as $promo) {
 
             ?>
+                    <p class="status-produk" hidden><?php echo $data_jp->status_produk; ?></p>
                     <p class="tgl-akhir-promo" hidden><?php echo $data_jp->tgl_akhir_promo; ?></p>
                     <p class="jam-akhir-promo" hidden><?php echo $data_jp->jam_akhir_promo; ?></p>
 
@@ -95,7 +96,7 @@
                                     <div class="custom-select-form">
                                         <select class="wide" id="select-texture-addtocart">
                                             <?php
-                                            $sql = "SELECT * FROM foto_produk WHERE id_fotjp = $id_jp";
+                                            $sql = "SELECT * FROM foto_produk WHERE id_fotjp = $id_jp AND status_foto = 'display'";
                                             $query = $this->db->query($sql);
                                             if ($query->num_rows() > 0) {
                                                 foreach ($query->result() as $data_texture) {
@@ -306,7 +307,7 @@
                                         }
                                         ?>
                                     </div>
-                                    <script>
+                                    <!-- <script>
                                         var x = setInterval(function() {
                                             var countDownDate = new Date("<?php echo $row->tgl_akhir_promo; ?> <?php echo $row->jam_akhir_promo; ?>");
 
@@ -351,7 +352,7 @@
                                                 }
                                             }
                                         }, 1000);
-                                    </script>
+                                    </script> -->
                             <?php
                                 }
                             }

@@ -310,6 +310,7 @@
             } else {
                 $("#submit-simpan-foto").attr('disabled', true);
                 $('.loader-insert-foto').show();
+
                 let formData = new FormData();
                 formData.append('id-fotpro', $('#id-fotpro').val());
                 formData.append('id-fotjp', id_fotjp);
@@ -333,8 +334,8 @@
                             $("#submit-simpan-foto").removeAttr('disabled', true)
                             $('.loader-insert-foto').hide();
                             $('#form-foto-produk').attr('hidden', true);
-                            $('.form-data').load('<?php echo site_url('Olah_data/foto_produk'); ?>');
-                            form_foto_produk();
+                            load_data_foto();
+
                         },
                         error: function() {
                             alert("Data Gagal Diupload");
@@ -359,8 +360,7 @@
                                 $('.loader-insert-foto').hide();
                                 $('#ceklis-ubah-fotpro').prop('checked', false);
                                 $('#form-foto-produk').attr('hidden', true);
-                                $('.form-data').load('<?php echo site_url('Olah_data/foto_produk'); ?>');
-                                form_foto_produk();
+                                load_data_foto();
                             },
                             error: function() {
                                 alert("Data Gagal Diupload");
@@ -382,8 +382,7 @@
                                 $("#submit-simpan-foto").removeAttr('disabled', true)
                                 $('.loader-insert-foto').hide();
                                 $('#form-foto-produk').attr('hidden', true);
-                                $('.form-data').load('<?php echo site_url('Olah_data/foto_produk'); ?>');
-                                form_foto_produk();
+                                load_data_foto();
                             },
                             error: function() {
                                 alert("Data Gagal Diupload");
@@ -424,6 +423,32 @@
                 $('#val-ceklis-ubah').val('');
             }
         });
+
+        function load_data_foto() {
+            var select_produk = $("#select-nm-produk").find(':selected').val();
+            $.ajax({
+                // type: 'POST',
+                url: "<?php echo site_url('Olah_data/foto_produk') ?>",
+                // data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $('.form-data').html(data);
+                    $('#select-nm-produk').val(select_produk);
+                    if (select_produk == '0') {
+                        $('.tr-foto-produk').show();
+
+                    } else {
+                        $('.tr-foto-produk').hide();
+                        $('.tr-foto-' + select_produk).show();
+                    }
+                },
+                error: function() {
+                    alert("Data Gagal Diupload");
+                }
+            });
+        }
 
         function form_jenis_produk() {
             var id_jp = $('#id-jp').val('');
