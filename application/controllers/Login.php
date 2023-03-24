@@ -56,8 +56,8 @@ class Login extends CI_Controller
                     'charset'   => 'utf-8',
                     'protocol'  => 'smtp',
                     'smtp_host' => 'smtp.gmail.com',
-                    'smtp_user' => 'kinderton_official@kinderton.id',  // Email gmail
-                    'smtp_pass'   => 'H04i*Ku(kCfi',  // Password gmail
+                    'smtp_user' => 'akunaktivasikinderton@gmail.com',  // Email gmail
+                    'smtp_pass'   => 'kxklkmfymlpihywd',  // Password gmail
                     'smtp_crypto' => 'ssl',
                     'smtp_port'   => 465,
                     'crlf'    => "\r\n",
@@ -65,7 +65,7 @@ class Login extends CI_Controller
                 ];
                 $email_to_user = $this->session->userdata('gmail');
                 $this->load->library('email', $config);
-                $this->email->from('kinderton_official@kinderton.id', 'Kinderton');
+                $this->email->from('akunaktivasikinderton@gmail.com', 'Kinderton');
                 $this->email->to($email_to_user);
                 $this->email->subject('Aktivasi Akun Kinderton');
                 $data_email = array(
