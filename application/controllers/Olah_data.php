@@ -216,13 +216,13 @@ class Olah_data extends CI_Controller
 			if ($status_foto == 'slide') {
 
 				$this->resizeImage_landcape($uploadedImage['file_name']);
-				$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
+				$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotpro, $id_fotjp, $fot_produk, $texture, $status_foto);
 				echo json_encode($insert);
 			} else {
 				$this->resizeImage_potrait($uploadedImage['file_name']);
-				$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotjp, $fot_produk, $texture, $status_foto);
-				echo json_encode($insert);
 			}
+			$insert = $this->m_olah_data->m_simpan_foto_produk($id_fotpro, $id_fotjp, $fot_produk, $texture, $status_foto);
+			echo json_encode($insert);
 		}
 		exit;
 	}
@@ -262,7 +262,7 @@ class Olah_data extends CI_Controller
 			'maintain_ratio' => TRUE,
 			'quality' => '60%',
 			'width' => '1667',
-			'height' => '2500',
+			'height' => 'auto',
 		];
 		$this->load->library('image_lib', $config);
 		if (!$this->image_lib->resize()) {
@@ -283,9 +283,9 @@ class Olah_data extends CI_Controller
 			'source_image' => $source_path,
 			'new_image' => $target_path,
 			'maintain_ratio' => TRUE,
-			'quality' => '60%',
-			'width' => '1667',
-			'height' => '2500',
+			'quality' => '50%',
+			'width' => '2650',
+			'height' => 'auto',
 		];
 		$this->load->library('image_lib', $config);
 		if (!$this->image_lib->resize()) {

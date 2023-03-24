@@ -134,7 +134,7 @@ foreach ($query->result() as $data) :
         <div class="col-lg-6 col-md-6 col-12">
             <div class="row mt-2">
                 <?php
-                $sql = "SELECT * FROM foto_produk WHERE id_fotjp = $id_jp";
+                $sql = "SELECT * FROM foto_produk WHERE id_fotjp = $id_jp AND status_foto = 'display'";
                 $query = $this->db->query($sql);
                 foreach ($query->result() as $foto) {
                     if ($foto->texture == '-') {
@@ -159,7 +159,7 @@ foreach ($query->result() as $data) :
                 <select class="form-control select2 heightp-2px" id="select-size-addtofavorit" data-id-favorit="" data-action="" name="">
                     <option value="0">Pilih size</option>
                     <?php
-                    $sql = "SELECT *FROM harga_produk WHERE id_hrg_produk = $id_jp ORDER BY id_hrg DESC";
+                    $sql = "SELECT *FROM harga_produk WHERE id_hrg_produk = $id_jp ORDER BY id_hrg ASC";
                     $query = $this->db->query($sql);
                     if ($query->num_rows() > 0) {
                         foreach ($query->result() as $data_size) {

@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <select class="form-control select2 height-2rem p-2px varian" id="varian-<?php echo $data->id_favorit; ?>" data-id-favorit="<?php echo $data->id_favorit; ?>" name="">
                                         <?php
-                                        $sql = "SELECT * FROM foto_produk WHERE id_fotjp = $id_jp";
+                                        $sql = "SELECT * FROM foto_produk WHERE id_fotjp = $id_jp AND status_foto ='display'";
                                         $query = $this->db->query($sql);
                                         if ($query->num_rows() > 0) {
                                             foreach ($query->result() as $data_texture) {
